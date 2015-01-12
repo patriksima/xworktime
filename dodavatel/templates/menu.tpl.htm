@@ -1,0 +1,17 @@
+    <div id="navi">
+    <ul class="level0">
+        <li{if $page=='ukoly'} class="selected"{/if}><span>[ </span><a href="{$ROOTPATH}dodavatel/"><strong>Úkoly</strong></a><span> ]</span>
+            <ul class="level1">
+                <li><span>[ </span><a href="{$ROOTPATH}dodavatel/"><strong>Seznam úkolů</strong></a><span> ]</span></li>
+            </ul></li>
+        <li{if $page=='podklady'} class="selected"{/if}><span>[ </span><a href="{$ROOTPATH}dodavatel/podklady/"><strong>Podklady</strong></a><span> ]</span>
+            <ul class="level1">
+                <li><span>[ </span><a href="{$ROOTPATH}dodavatel/podklady/"><strong>Seznam podkladů</strong></a><span> ]</span></li>
+                <li><span>[ </span><a href="{$ROOTPATH}dodavatel/podklady/?filtr=1"><strong>Vyhledat podklady</strong></a><span> ]</span></li>
+                <li><span>[ </span><a href="{$ROOTPATH}dodavatel/podklady/export.htm?splnenood={$smarty.get.splnenood}&amp;splnenodo={$smarty.get.splnenodo}&amp;id_zadavatel={$smarty.get.id_zadavatel}&amp;nazev={$smarty.get.nazev|escape}&amp;klic={$smarty.get.klic|escape}&amp;fakturad={$smarty.get.fakturad}&amp;zaplacend={$smarty.get.zaplacend}"><strong>Exportovat podklady</strong></a><span> ]</span></li>
+            </ul></li>
+        <li{if $page=='nastaveni'} class="selected"{/if}><span>[ </span><a href="{$ROOTPATH}dodavatel/nastaveni.php"><strong>Nastavení</strong></a><span> ]</span></li>
+        <li><span>[ </span><a href="{$ROOTPATH}dodavatel/odhlasit.php"><strong>Odhlásit</strong></a><span> ]</span></li>
+    </ul>
+    </div>
+    <hr class="noprint" />

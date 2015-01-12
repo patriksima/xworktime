@@ -1,0 +1,138 @@
+{include file='header.tpl.htm' js='ukoly.js' page='ukoly'}
+<div id="main">
+    <h3>Úkoly</h3>
+    <p><span class="pocet">Počet záznamů: {$ukoly->GetCount()}</span></p>
+    <hr />
+
+    <form method="get" action="./" class="noprint">
+    <input name="filtr" type="hidden" value="2" />
+{if $smarty.get.sort}
+    <input name="sort" type="hidden" value="{$smarty.get.sort}" />
+{/if}
+    <p class="msg_head"><img src="{$ROOTPATH}img/search.gif" alt="Vyhledávání úkolů" title="Vyhledávání úkolů" /><a>Vyhledávání úkolů</a></p>
+    <div class="msg_body">
+    <table id="formtable-search">
+        <tr>
+            <td class="form-left-dod"><label for="nazev">Název úkolu:</label></td>
+            <td class="form-right-dod"><input id="nazev" name="nazev" type="text" value="{$smarty.get.nazev|escape}" size="30" /></td>
+        </tr>
+        <tr>
+            <td class="form-left-dod">Stav:</td>
+            <td class="form-right-dod">
+                <label for="status1">nový</label>
+                <input id="status1" name="status[]" type="checkbox" value="novy" {if in_array('novy',$status)}checked="checked" {/if}/>
+                <label for="status2">přijatý</label>
+                <input id="status2" name="status[]" type="checkbox" value="prijaty" {if in_array('prijaty',$status)}checked="checked" {/if}/>
+                <label for="status3">zamítnutý</label>
+                <input id="status3" name="status[]" type="checkbox" value="zamitnuty" {if in_array('zamitnuty',$status)}checked="checked" {/if}/>
+                <label for="status4">dokončený</label>
+                <input id="status4" name="status[]" type="checkbox" value="dokonceny" {if in_array('dokonceny',$status)}checked="checked" {/if}/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" id="butt_green2" value="Vyhledat" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><hr /></td>
+        </tr>
+    </table>
+    </div>
+    </form>
+
+
+    <table>
+    <tr>
+        <th class="th-left"><span class="has-tip tip-top" title="Datum zadání úkolu">Zadáno</span></th>
+        <th><span class="has-tip tip-top" title="Deadline úkolu">Termín</span></th>
+        <th><span class="has-tip tip-top" title="Datum dokončení úkolu">Splněno</span></th>
+        <th><span class="has-tip tip-top" title="Název klienta">Klient</span></th>
+        <th><span class="has-tip tip-top" title="Název úkolu">Název</span></th>
+        <th><span class="has-tip tip-top" title="Rozlišovací klíčové slovo">Klíč</span></th>
+        <th><span class="has-tip tip-top" title="Stav úkolu">Stav</span></th>
+        <th class="th-right">&nbsp;</th>
+    </tr>
+    <tr class="razeni">
+        <th class="td-razeni"><a href="{$Q->S('sort','_zadano')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zadano'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','zadano')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zadano'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_termin')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_termin'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','termin')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='termin'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_splneno')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_splneno'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','splneno')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='splneno'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_zadavatel')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zadavatel'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','zadavatel')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zadavatel'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_nazev')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_nazev'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','nazev')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='nazev'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_klic')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_klic'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','klic')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='klic'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_status')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_status'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','status')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='status'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni">&nbsp;</th>
+    </tr>
+{foreach name=ukoly from=$ukoly->GetData() item=ukol}
+{if $ukol.status!='dokonceny'}
+{if $ukol.termin!='0000-00-00' && $ukol.termin<=$smarty.now|date_format:"%Y-%m-%d"}
+    <tr{if $smarty.foreach.ukoly.index%2} class="even deadline"{else} class="deadline"{/if}>
+{elseif $ukol.termin=='0000-00-00' && $ukol.splneno=='0000-00-00'}
+    <tr{if $smarty.foreach.ukoly.index%2} class="even blue"{else} class="blue"{/if}>
+{else}
+    <tr{if $smarty.foreach.ukoly.index%2} class="even"{/if}>
+{/if}
+{/if}
+        <td class="center">{$ukol.zadano|date_format:"%d.%m.%Y"}</td>
+        <td class="center">{if $ukol.termin!='0000-00-00'}{$ukol.termin|date_format:"%d.%m.%Y"}{else}nezadán{/if}</td>
+        <td class="center">{if $ukol.splneno!='0000-00-00'}{$ukol.splneno|date_format:"%d.%m.%Y"}{else}nesplněn{/if}</td>
+        <td style="text-align: left"><a href="{$Q->S('filtr',2,'id_zadavatel',$ukol.id_zadavatel)}" title="Zobrazit záznamy tohoto klienta">{$ukol.zadavatel|escape}</a></td>
+        <td style="text-align: left">{$ukol.nazev|escape}</td>
+        <td class="center"><a href="{$Q->S('filtr',2,'klic',$ukol.klic)}" title="Zobrazit záznamy s tímto klíčem">{$ukol.klic|escape}</a></td>
+        <td class="center">{if $ukol.status=='novy'}nový{/if}{if $ukol.status=='prijaty'}přijatý{/if}{if $ukol.status=='zamitnuty'}zamítnutý{/if}{if $ukol.status=='dokonceny'}dokončený{/if}</td>
+        <td class="nowrap noprint">{if $ukol.status=='prijaty' || $ukol.status=='dokonceny'}<a href="ukol-upravit.php?id={$ukol.id}"><img src="{$ROOTPATH}img/edit.gif" alt="Upravit" title="Upravit" /></a>{else}<img src="{$ROOTPATH}img/edit2.gif" alt="Upravit" title="Upravit úkol" class="has-tip tip-top" />{/if}
+            <a href="#{$ukol.id}"><img src="{$ROOTPATH}img/info.gif" alt="Zobrazit popis úkolu" title="Zobrazit popis úkolu" class="has-tip tip-top" /></a>
+            {if $ukol.soubor!=''}<a href="{$ROOTPATH}podpora/upload/{$ukol.soubor}"><img src="{$ROOTPATH}img/download.png" alt="Zobrazit přílohu" title="Zobrazit přílohu" class="has-tip tip-top" /></a>{/if}
+            {if $ukol.status=='prijaty'}<a href="ukol-splnen.php?id={$ukol.id}"><img src="{$ROOTPATH}img/splnen.gif" alt="Splněn" title="Splněn" /></a>{else}<img src="{$ROOTPATH}img/splnen2.gif" alt="Splněn" title="Splněn" class="has-tip tip-top" />{/if}
+            {if $ukol.status=='novy'}<a href="ukol-prijmout.php?id={$ukol.id}"><img src="{$ROOTPATH}img/prijmout.gif" alt="Příjmout" title="Příjmout" class="has-tip tip-top" /></a><a href="ukol-odmitnout.php?id={$ukol.id}"><img src="{$ROOTPATH}img/odmitnout.gif" alt="Odmítnout" title="Odmítnout" class="has-tip tip-top" /></a>{else}<img src="{$ROOTPATH}img/prijmout2.gif" alt="Příjmout" title="Příjmout" /><img src="{$ROOTPATH}img/odmitnout2.gif" alt="Odmítnout" title="Odmítnout" class="has-tip tip-top" />{/if}
+            <a href="ukol-chat.php?id_ukol={$ukol.id}"><img src="{$ROOTPATH}img/chat.gif" alt="Diskuze k úkolu" title="Diskuze k úkolu" class="has-tip tip-top" /></a></td>
+    </tr>
+    <tr class="silver">
+        <td colspan="8"><em>{$ukol.popis|escape}</em></td>
+    </tr>    
+{/foreach}
+{if !$ukoly->GetCount()}
+    <tr>
+        <td colspan="8" class="center">Žádný úkol.</td>
+    </tr>
+{/if}
+    </table>
+    
+{if $ukoly->GetCount() > 20}
+{assign var=c value=$ukoly->GetCount()}
+{if $smarty.get.page < 1}
+    {assign var=page value=1}
+{else}
+    {assign var=page value=$smarty.get.page}
+{/if}
+{math assign=p equation="x%y" x=$c y=20 format="%d"}
+{math assign=c equation="x/y" x=$c y=20 format="%d"}
+{if $p}
+    {math assign=c equation="x+1" x=$c format="%d"}
+{/if}
+{if $page > 2 && $c > 3}
+    {math assign=start equation="x-1" x=$page format="%d"}
+{else}
+    {assign var=start value=1}
+{/if}
+{if $start+2 > $c && $c > 3}
+    {math assign=start equation="x-2" x=$c format="%d"}
+{/if}
+    <p class="lister">
+    <a href="{$Q->S('page','1')}">první</a> | <a href="{if $page-1}{$Q->S('page',$page-1)}{else}{$Q->S('page','1')}{/if}">&lt;&lt; přechozí</a> |
+{section name=list start=$start loop=$c+1 max=3 step=1}
+    {if $smarty.section.list.index == $page}
+    <strong>{$smarty.section.list.index|string_format:"%02d"}</strong>
+    {else}
+    <a href="{$Q->S('page',$smarty.section.list.index)}">{$smarty.section.list.index|string_format:"%02d"}</a>
+    {/if}
+    {if !$smarty.section.list.last}
+     - 
+    {/if}
+{/section}
+{if $ukoly->GetCount()==0}
+    <strong>--</strong>
+{/if}
+     | <a href="{if $page+1<$c}{$Q->S('page',$page+1)}{else}{$Q->S('page',$c)}{/if}">další &gt;&gt;</a> | <a href="{$Q->S('page',$c)}">poslední</a>
+    </p>
+{/if}
+    
+{include file='footer.tpl.htm'}

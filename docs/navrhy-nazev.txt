@@ -1,0 +1,41 @@
+evidence
+	- record
+	- evidence
+	- files
+	- accounting
+	- registration
+
+dodavatel
+	- provider
+	- contractor
+	- supplier
+
+fakturace
+	- billing
+	- invoicing 
+
+správa
+	- administration
+	- control
+	- direction
+	- managment
+
+zakázka
+	- order
+	- piecework
+	- job
+
+kooperace
+multiuser přístup
+
+Evidence and Managing of Orders, Suppliers and Time for Invoices
+
+Managment of Orders, Suppliers and Time for Invoices
+
+Evidence a správa zakázek, dodavatelů a podkladů k fakturaci.
+On-line webová aplikace pro správu zakázek, dodavatelů a podkladů k fakturaci.
+
+JobExtern NetManager?
+OST Manager
+NetExtern Manager
+XWorkTime

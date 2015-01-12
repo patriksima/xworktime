@@ -1,0 +1,192 @@
+XWorkTime
+-------------------
+
+On-line webová aplikace pro správu zakázek, dodavatelů a podkladů k fakturaci.
+
+Požadavky:
+  - php5, mysql5
+  - moderní prohlížeč (IE7+, FF, Chrome)
+
+Základní vlastnosti:
+  - administrátorský přístup
+    - správa pokladů
+    - správa úkolů
+    - správa zadavatelů
+    - správa dodavatelů
+    - správa dodavatelských přístupů
+    - správa klientských přístupů
+  - dodavatelský přístup
+    - seznam úkolů
+    - seznam podkladů
+  - klientský přístup
+    - seznam podkladů
+ 
+Extra:
+  - dokumentace (php, mysql)
+  - MVC model (php, smarty)
+  - využití mysql pohledů
+  - vývoj s použitím verzovacího nástroje git
+  - ajax s využitím jQuery
+  - multiuživatelský přístup - kontrola, zda aktuálně upravovanou položku nesmazal jiný administrátor apod.
+  
+Úkol obsahuje tyto položky:
+  - zadavatel
+  - dodavatel
+  - název úkolu
+  - popis úkolu
+  - klíčové slovo
+  - datum zadání úkolu
+  - termín realizace
+  - status (nový, přijatý, odmítnutý, dokončený)
+
+Podklad obsahuje tyto položky:
+  - zadavatel
+  - dodavatel
+  - zad. hodinová sazba
+  - dod. hodinová sazba
+  - název úkolu
+  - popis práce
+  - dod. hodiny
+  - zad. hodiny
+  - klíčové slovo
+  - datum realizace
+  - příznaky:
+    - fakturováno zadavateli, zaplaceno zadavatelem
+    - fakturováno dodavatelem, zaplaceno dodavateli
+    
+Ke každému splněnému úkolu je právě jeden podklad.
+
+Zadavatel obsahuje tyto položky:
+  - název
+  - sazba - lze definovat více sazeb, které lze využít jako vzor (název sazby, částka)
+
+Dodavatel obsahuje tyto položky:
+  - název
+  - typ (grafik, kodér, programátor...)
+  - stabilita (stálý, občasný, nouzový, potenciální)
+  - sazba
+  - koeficient rychlosti - pro výpočet zad.hodin
+  - adresa + kontakty
+  - interní poznámka  
+  
+Administrátor - možnosti:
+  Přehled:
+    - zadavatelé - celkem nefakturováno, dluží nám
+    - dodavatelé - celkem nefakturováno, dlužíme
+    - zisk - teoretický, skutečný
+    - verze
+  Podklady:
+    - přidat, upravit, smazat podklad
+    - vyhledávání podkladů dle parametrů
+    - možnost zobrazení popisu úkolu
+    - zvýraznění fakturovaných, ale nezaplacených podkladů
+    - řazení dle:
+      - data realizace
+      - zadavatele
+      - dodavatele
+      - názvu úkolu
+      - zad. hodin
+      - příjmů - zad.hod x zad.sazba
+      - výdajů - dod.hod x dod.sazba
+      - klíče
+      - zf, zz, df, dz
+    - export podkladů do csv
+    - možnost označit fakturované/zaplacené podklady
+  Úkoly:
+    - přidat, upravit, zkopírovat, smazat úkol
+    - možnost zobrazení popisu úkolu
+    - znovu vyzvat dodavatele - i na jiný email než je v systému
+    - předelegování úkolu
+    - zvýraznění blížicích se deadlajnů
+    - řazení dle:
+      - data zadání úkolu
+      - termínu
+      - data realizace
+      - zadavatele
+      - dodavatele
+      - názvu úkolu
+      - klíče
+      - statusu (nový, přijatý, odmítnutý, dokončený)
+    - vyhledávání úkolů dle názvu
+  Zadavatelé:
+    - přidat, upravit, smazat
+    - zobrazit všechny zadavatelovy podklady
+    - zobrazit nevyfakturované podklady
+    - zobrazit nezaplacené podklady
+    - řadit dle:
+      - názvu
+      - základní sazby
+      - dlužné částky
+      - zaplacené částky
+      - nákladů
+      - zisků
+      - částky z nevyfakturovaných podkladů
+  Dodavatelé:
+    - přidat, upravit, smazat
+    - zobrazit všechny dodavatelovy podklady
+    - zobrazit nezaplacené podklady
+    - řadit dle:
+      - názvu
+      - typu
+      - stability
+      - emailu
+      - sazby
+      - rychlosti
+      - částky, kterou dodavateli dlužíme
+  Dod. přístupy:
+    - přidat, upravit, smazat
+    - řadit dle:
+      - názvu dodavatele
+      - příst. jména
+      - emailu
+      - práv (admin/uživatel)
+  Klientské přístupy:
+    - přidat, upravit, smazat
+    - řadit dle:
+      - názvu zadavatele
+      - příst. jména
+      - emailu
+
+Dodavatel - možnosti:
+  Nastavení:
+    - změna hesla
+    - změna sazby
+    - změna kontaktních údajů
+  Úkoly:
+    - přijmout/odmítnout, splnit, upravit
+    - řadit dle:
+      - data zadání
+      - termínu
+      - data realizace
+      - zadavatele
+      - názvu úkolu
+      - klíče
+      - statusu
+  Podklady:
+    - upravit
+    - vyhledávání podkladů dle parametrů
+    - export do csv
+    - řadit dle:
+      - datumu realizace
+      - zadavatele
+      - názvu
+      - hodin
+      - sazby
+      - klíče
+      - celkové částky - hod. x sazba
+      - fakturováno, zaplaceno
+      
+Klient - možnosti
+  Podklady:
+    - upravit
+    - vyhledávání podkladů dle parametrů
+    - export do csv
+    - řadit dle:
+      - datumu realizace
+      - názvu
+      - hodin
+      - sazby
+      - klíče
+      - celkové částky - hod. x sazba
+      - fakturováno, zaplaceno
+

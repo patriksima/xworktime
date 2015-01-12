@@ -1,0 +1,167 @@
+{include file='header.tpl.htm' title='Dodavatelé' page='dodavatele' js='dodavatele-pridat.js'}
+<div id="main">
+    <h3>Dodavatelé</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam dodavatelů</a>
+    </p>
+    <form action="pridat2.php" method="post">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat dodavatele" title="Přidat dodavatele" /> Přidat dodavatele</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="nazev">Název *:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" value="{if $error->IsError()}{$error->GetVal('nazev')|escape}{/if}" size="35" />
+{if $error->CheckMsg('nazev')}
+            <span class="form-error-msg">! {$error->GetMsg('nazev')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="id_typ">Typ *:</label></td>
+            <td class="form-right"><select id="id_typ" name="id_typ">
+                <option value="">--vyberte--</option>
+{foreach name=dodavateltyplist from=$dodavateltyplist->GetData() item=dodavateltyp}
+{if $error->GetVal('id_typ')==$dodavateltyp.id}
+                <option value="{$dodavateltyp.id}" selected="selected">{$dodavateltyp.nazev|escape}</option>
+{else}
+                <option value="{$dodavateltyp.id}">{$dodavateltyp.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_typ')}
+            <span class="form-error-msg">! {$error->GetMsg('id_typ')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="id_stabilita">Stabilita *:</label></td>
+            <td class="form-right"><select id="id_stabilita" name="id_stabilita">
+                <option value="">--vyberte--</option>
+{foreach name=dodavatelstabilitalist from=$dodavatelstabilitalist->GetData() item=dodavatelstabilita}
+{if $error->GetVal('id_stabilita')==$dodavatelstabilita.id}
+                <option value="{$dodavatelstabilita.id}" selected="selected">{$dodavatelstabilita.nazev|escape}</option>
+{else}
+                <option value="{$dodavatelstabilita.id}">{$dodavatelstabilita.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_stabilita')}
+            <span class="form-error-msg">! {$error->GetMsg('id_stabilita')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nepocitat">Nezapočítávat <span class="has-tip tip-top" data-width="250" title="Automaticky vyfakturuje a zaplatí dokončený úkol. Typicky využito v one-man verzi, kdy si živnostník nefakturuje sám sobě."> ? </span>:</label></td>
+            <td class="form-right"><input id="nepocitat" name="nepocitat" type="checkbox" value="1"{if $error->IsError() && $error->GetVal('nepocitat')==1} checked="checked"{/if} /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazba">Sazba (Kč/hod.) *:</label></td>
+            <td class="form-right"><input id="sazba" name="sazba" type="text" value="{if $error->IsError()}{if $error->GetVal('sazba')}{$error->GetVal('sazba')|string_format:"%d"}{/if}{/if}" />
+{if $error->CheckMsg('sazba')}
+            <span class="form-error-msg">! {$error->GetMsg('sazba')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="rychlost">Koeficient rychlosti (>=1) *:</label></td>
+            <td class="form-right"><input id="rychlost" name="rychlost" type="text" value="{if $error->IsError()}{if $error->GetVal('rychlost')}{$error->GetVal('rychlost')}{/if}{/if}" />
+{if $error->CheckMsg('rychlost')}
+            <span class="form-error-msg">! {$error->GetMsg('rychlost')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="ulice">Ulice a č.p.:</label></td>
+            <td class="form-right"><input id="ulice" name="ulice" type="text" value="{if $error->IsError()}{$error->GetVal('ulice')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="mesto">Město:</label></td>
+            <td class="form-right"><input id="mesto" name="mesto" type="text" value="{if $error->IsError()}{$error->GetVal('mesto')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="stat">Stát:</label></td>
+            <td class="form-right"><select id="stat" name="stat">
+                <option value="">--vyberte--</option>
+                <option value="Česká republika"{if $error->GetVal('stat')=='Česká republika'} selected="selected"{/if}>Česká republika</option>
+                <option value="Slovenská republika"{if $error->GetVal('stat')=='Slovenská republika'} selected="selected"{/if}>Slovenská republika</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="psc">PSČ:</label></td>
+            <td class="form-right"><input id="psc" name="psc" type="text" value="{if $error->IsError()}{$error->GetVal('psc')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="ic">IČ:</label></td>
+            <td class="form-right"><input id="ic" name="ic" type="text" value="{if $error->IsError()}{$error->GetVal('ic')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="dic">DIČ:</label></td>
+            <td class="form-right"><input id="dic" name="dic" type="text" value="{if $error->IsError()}{$error->GetVal('dic')|escape}{/if}" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="form-left"><label for="tel">Tel.:</label></td>
+            <td class="form-right"><input id="tel" name="tel" type="text" value="{if $error->IsError()}{$error->GetVal('tel')|escape}{else}+420 {/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="fax">Fax:</label></td>
+            <td class="form-right"><input id="fax" name="fax" type="text" value="{if $error->IsError()}{$error->GetVal('fax')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="email">E-mail *:</label></td>
+            <td class="form-right"><input id="email" name="email" type="text" value="{if $error->IsError()}{$error->GetVal('email')|escape}{else}@{/if}" />
+{if $error->CheckMsg('email')}
+            <span class="form-error-msg">! {$error->GetMsg('email')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="icq">ICQ:</label></td>
+            <td class="form-right"><input id="icq" name="icq" type="text" value="{if $error->IsError()}{$error->GetVal('icq')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="jabber">Jabber:</label></td>
+            <td class="form-right"><input id="jabber" name="jabber" type="text" value="{if $error->IsError()}{$error->GetVal('jabber')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="msn">MSN:</label></td>
+            <td class="form-right"><input id="msn" name="msn" type="text" value="{if $error->IsError()}{$error->GetVal('msn')|escape}{/if}" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="www">WWW:</label></td>
+            <td class="form-right"><input id="www" name="www" type="text" value="{if $error->IsError()}{$error->GetVal('www')|escape}{else}http://{/if}" size="40" />
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="poznamka">Poznámka:</label></td>
+            <td class="form-right"><textarea id="poznamka" name="poznamka" rows="5" cols="40">{if $error->IsError()}{$error->GetVal('poznamka')|escape}{/if}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Přidat" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam dodavatelů</a>
+    </p>
+{include file='footer.tpl.htm'}

@@ -1,0 +1,177 @@
+/* CSS Document */
+body {
+    font-family: Tahoma, Arial, Verdana;
+    font-size: .8em;
+    line-height: 1.2em;
+    color: #000000;
+    background-color: #eaebf1;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+h1 {
+    font-size: 1.3em;
+    display: none;
+}
+
+h2 {
+    font-size: 1.1em;
+    display: none;
+}
+
+a {
+    color: #53a60c;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #276300;
+    text-decoration: none;
+}
+
+a:active {
+    color: #c00000;
+    text-decoration: none;
+}
+
+a img {
+    border: 0px;
+}
+
+abbr {cursor: help;}
+
+fieldset {
+    border: solid 1px silver;
+    margin: 0px;
+    padding: 10px;
+}
+
+form, fieldset legend {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+form p span {
+    color: red;
+}
+
+hr {width:100%;clear:both;display:block;margin:2px 0 2px 0;padding:0;border:0;height:1px;font-size:1px;line-height:1px;background-color:silver; display: none;}
+
+/* Pøihlašovací stránka */
+
+#login {
+  background: url('../img/login.jpg') no-repeat;
+  width: 298px;
+  height: 298px;
+  margin: 200px auto 0px;
+}
+
+#login p{
+  width: 266px;
+  margin: 16px;
+}
+
+#main {
+    margin: 0 auto;
+    padding: 2em;
+}
+
+#navi {
+    background: #fff;
+}
+
+#navi ul, #navi li {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+
+#navi li {float:left; padding: 5px; margin-bottom:5px; }
+
+#navi ul li ul {display:none;position:absolute;background-color:#e8e8e8;width:150px}
+
+#navi ul li.selected { background-color: #e8e8e8 }
+
+#navi span {display:none}
+
+.error {text-align: center; color:red;}
+.message {text-align: center; color:#53a60c;}
+.a-log {color: red;}
+.hidden {display:none}
+.disabled {background-color:#f5f5f5; color:#999999;}
+
+table {
+    color: #000000;
+}
+
+table th {
+    color: #53A60C;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+}
+
+table th {
+    padding: 5px;
+}
+
+table td {
+    padding: 5px 2px 5px 2px;
+}
+
+table tr td {
+    background-color: #f1f1f1;
+}
+
+table tr.even td {
+    background-color: #e8e8e8;
+}
+
+table th.right, td.right {
+    text-align: right;
+}
+
+table th.center, td.center {
+    text-align: center;
+}
+
+table tr.grey {
+    opacity: .7;
+	filter: alpha(opacity=70);
+}
+
+table tr.selected td {
+    background-color: #ffcc00;
+}
+
+table tr.orange td {
+    cursor: pointer;
+    background-color: /*#ff9900;*/#99ff33;
+}
+
+table tr.silver {
+    display: none;
+}
+table tr.silver td {
+    background-color: silver;
+}
+
+table tr.deadline td {
+    color: red;
+}
+
+table tr.navy td {
+    color: navy;
+}
+
+table tr.blue td {
+    color: blue;
+}
+
+.nowrap {white-space:nowrap}
+#aps{ color: #000; }
+a#design { font-size: 10px; }
+a#design,  a#design:visited { color:#000; text-decoration: none; }						
+a#design:hover { color:#000; text-decoration: underline; }		

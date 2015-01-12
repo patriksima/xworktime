@@ -1,0 +1,27 @@
+dle cloc utility ma projekt 19568 radku (SLOC)
+primalingua o 10KSLOC se delala cca 80 hodin
+
+SUM: 160 - 200 manhours
+1 manhour = 650 Kč
+
+Cena: 100 - 130 tis.
+*-------------------
+
+auth       - 5
+prehled    - 5
+podklady   - 5
+ukoly      - 5
+zadavatele - 5
+dodavatele - 5
+uzivatele  - 5
+klienti    - 5
+
+dod pristup - 5
+klient pristup - 5
+
+exporty - 5
+notifikace - 5
+
+grafika+kodovani
+
+celkem cca 65tis

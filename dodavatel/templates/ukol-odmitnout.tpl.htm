@@ -1,0 +1,43 @@
+{include file='header.tpl.htm'}
+<div id="main">
+    <h3>Úkoly</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+    <form action="ukol-odmitnout2.php?id={if $smarty.get.id}{$smarty.get.id}{else}{$ukol->Get('id')}{/if}" method="post">
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    <fieldset>
+        <legend><img src="../img/odmitnout.gif" alt="Odmítnutí úkolu" title="Odmítnutí úkolu" /> Odmítnutí úkolu</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="zadavatel">Klient:</label></td>
+            <td class="form-right"><input class="disabled" id="zadavatel" name="zadavatel" type="text" value="{$zadavatel->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název:</label></td>
+            <td class="form-right"><input class="disabled" id="nazev" name="nazev" type="text" value="{$ukol->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="popis">Popis úkolu:</label></td>
+            <td class="form-right"><textarea class="disabled" id="popis" name="popis" rows="5" cols="40" readonly="readonly">{$ukol->Get('popis')|escape}</textarea></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="termin">Termín dokončení:</label></td>
+            <td class="form-right"><input class="disabled" id="termin" name="termin" type="text" value="{if $ukol->Get('termin')!='0000-00-00'}{$ukol->Get('termin')}{/if}" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="duvod">Důvod odmítnutí:</label></td>
+            <td class="form-right"><textarea id="duvod" name="duvod" rows="5" cols="40"></textarea></td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Potvrdit" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+{include file='footer.tpl.htm'}

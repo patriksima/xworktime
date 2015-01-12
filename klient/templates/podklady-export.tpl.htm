@@ -1,0 +1,70 @@
+{include file='header.tpl.htm' js="podklady-export.js"}
+<div id="main">
+    <h3>Podklady</h3>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+    <form action="export2.php" method="get">
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/export.gif" alt="Export podkladů" /> Export podkladů</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label><strong>Podmínky</strong></label></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="splnenood">Datum realizace:</label></td>
+            <td class="form-right"><input id="splnenood" name="splnenood" type="text" value="{$smarty.get.splnenood}" size="10" /> -
+            <input id="splnenodo" name="splnenodo" type="text" value="{$smarty.get.splnenodo}" size="10" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název úkolu:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" value="{$smarty.get.nazev|escape}" size="30" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="klic">Klíč:</label></td>
+            <td class="form-right"><input id="klic" name="klic" type="text" value="{$smarty.get.klic|escape}" size="30" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label><strong>Sloupce</strong></label></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="sloupec01">Datum:</label>
+            <input id="sloupec01" name="sloupce[]" type="checkbox" value="1" checked="checked" />
+            <label for="sloupec02"> | Název:</label>
+            <input id="sloupec02" name="sloupce[]" type="checkbox" value="2" checked="checked" />
+            <label for="sloupec03"> | Hodiny:</label>
+            <input id="sloupec03" name="sloupce[]" type="checkbox" value="3" checked="checked" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="sloupec04">Sazba:</label
+            <input id="sloupec04" name="sloupce[]" type="checkbox" value="4" checked="checked" />
+            <label for="sloupec05"> | Celkem:</label>
+            <input id="sloupec05" name="sloupce[]" type="checkbox" value="5" checked="checked" />
+            <label for="sloupec06"> | Klíč:</label>
+            <input id="sloupec06" name="sloupce[]" type="checkbox" value="6" checked="checked" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><strong>Formát exportu</strong></label></td>
+            <td class="form-right">&nbsp;</td>
+        <tr>
+            <td class="form-left"><label for="format01">CSV:</label>
+            <input id="format01" name="format" type="radio" value="1" checked="checked" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Export" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+{include file='footer.tpl.htm'}

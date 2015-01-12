@@ -1,0 +1,12 @@
+{include file='header.tpl.htm' js='ukol-prijmout.js'}
+<body>
+<div id="main">
+    <h3>Úkoly</h3>
+    <p>
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+    <p class="error">Úkol již byl přijat/odmítnut, dokončen nebo smazán.</p>
+    <p>
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+{include file='footer.tpl.htm'}

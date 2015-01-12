@@ -1,0 +1,66 @@
+{include file='header.tpl.htm' js='ukol-upravit.js'}
+<div id="main">
+    <h3>Úkoly</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+    <form action="ukol-upravit2.php?id={$smarty.get.id}" method="post">
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/edit.gif" alt="Upravit úkol" title="Upravit úkol" /> Upravit úkol</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="zadavatel">Klient:</label></td>
+            <td class="form-right"><input class="disabled" id="zadavatel" name="zadavatel" type="text" value="{$zadavatel->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název:</label></td>
+            <td class="form-right"><input class="disabled" id="nazev" name="nazev" type="text" value="{$ukol->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+{if $ukol->Get('status')=='dokonceny'}
+        <tr>
+            <td class="form-left"><label for="termin">Termín dokončení:</label></td>
+            <td class="form-right"><input class="disabled" id="termin" name="termin" type="text" value="{if $ukol->Get('termin')!='0000-00-00'}{$ukol->Get('termin')}{/if}" readonly="readonly" /></td>
+        </tr>
+{else}
+        <tr>
+            <td class="form-left"><label for="popis">Popis práce:</label></td>
+            <td class="form-right"><textarea class="disabled" id="popis" name="popis" rows="5" cols="40" readonly="readonly">{$ukol->Get('popis')|escape}</textarea></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="termin">Termín dokončení (RRRR-MM-DD)*:</label></td>
+            <td class="form-right"><input id="termin" name="termin" type="text" value="{if $error->IsError()}{$error->GetVal('termin')}{else}{if $ukol->Get('termin')!='0000-00-00'}{$ukol->Get('termin')}{/if}{/if}" /></td>
+        </tr>
+{/if}
+{if $ukol->Get('status')=='dokonceny'}
+        <tr>
+            <td class="form-left"><label for="popis">Popis práce:</label></td>
+            <td class="form-right"><textarea id="popis" name="popis" rows="5" cols="40">{$ukol->Get('popis')|escape}</textarea></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="hodinyd">Počet hodin *:</label></td>
+            <td class="form-right"><input id="hodinyd" name="hodinyd" type="text" value="{if $error->IsError()}{$error->GetVal('hodinyd')}{else}{$podklad->Get('hodinyd')}{/if}" /></td>
+{if $error->CheckMsg('hodinyd')}
+            <span class="form-error-msg">! {$error->GetMsg('hodinyd')}</span>
+{/if}
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazba">Sazba (Kč/hod.) *:</label></td>
+            <td class="form-right"><input id="sazba" name="sazba" type="text" value="{if $error->IsError()}{$error->GetVal('sazba')}{else}{$podklad->Get('sazbad')|string_format:"%d"}{/if}" /></td>
+{if $error->CheckMsg('sazba')}
+            <span class="form-error-msg">! {$error->GetMsg('sazba')}</span>
+{/if}
+        </tr>
+{/if}
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Uložit" />
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+{include file='footer.tpl.htm'}

@@ -1,0 +1,74 @@
+{include file='header.tpl.htm' title='Helpdesk' page='helpdesk' js='helpdesk-pridat.js'}
+<div id="main">
+    <h3>Helpdesk</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam vazeb</a>
+    </p>
+    <form action="pridat2.php" method="post">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat vazbu" title="Přidat vazbu" /> Přidat vazbu</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="id_zadavatel">Klient <span class="has-tip tip-top" title="Povinná položka"> * </span>:</label></td>
+            <td class="form-right"><select id="id_zadavatel" name="id_zadavatel">
+                <option value="">--vyberte--</option>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+{if $error->GetVal('id_zadavatel')==$zadavatel.id}
+                <option value="{$zadavatel.id}" selected="selected">{$zadavatel.nazev|escape}</option>
+{else}
+                <option value="{$zadavatel.id}">{$zadavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_zadavatel')}
+            <span class="form-error-msg">! {$error->GetMsg('id_zadavatel')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="id_dodavatel">Dodavatel <span class="has-tip tip-top" title="Povinná položka"> * </span>:</label></td>
+            <td class="form-right"><select id="id_dodavatel" name="id_dodavatel">
+                <option value="">--vyberte--</option>
+{foreach name=dodavatele from=$dodavatele->GetData() item=dodavatel}
+{if $error->GetVal('id_dodavatel')==$dodavatel.id}
+                <option value="{$dodavatel.id}" selected="selected">{$dodavatel.nazev|escape}</option>
+{else}
+                <option value="{$dodavatel.id}">{$dodavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_dodavatel')}
+            <span class="form-error-msg">! {$error->GetMsg('id_dodavatel')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="typ">Typ práce <span class="has-tip tip-top" title="Rozlišovací klíčové slovo, dle kterého bude přiřazen požadavek, např. název projektu. Povinná položka."> * </span>:</label></td>
+            <td class="form-right"><input id="typ" name="typ" type="text" value="{if $error->IsError()}{$error->GetVal('typ')|escape}{/if}" />
+{if $error->CheckMsg('typ')}
+            <span class="form-error-msg">! {$error->GetMsg('typ')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="prava">Právo upravovat:</label></td>
+            <td class="form-right"><input id="prava" name="prava" type="checkbox" value="1"{if $error->IsError()}{if $error->GetVal('prava')==1} checked="checked"{/if}{else} checked="checked"{/if} />
+            </td>
+        </tr>        
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Přidat" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam vazeb</a>
+    </p>
+{include file='footer.tpl.htm'}

@@ -1,0 +1,170 @@
+{include file='header.tpl.htm' page='podklady' js='podklady.js'}
+<div id="main">
+    <h3>Podklady</h3>
+{assign var=q value=$smarty.server.QUERY_STRING}
+{assign var=q value=$q|regex_replace:"/&*sort=[_a-z]+/":""}
+{assign var=q value=$q|regex_replace:"/&*page=[0-9]+/":""}
+    <p class="pleft"><span class="pocet">Počet záznamů: {$podklady->GetCount()}</span></p>
+    <p class="pright">Vaše sazba je <span class="sazba">{$dodavatel->Get('sazba')|string_format:"%d"}</span> Kč/hod.</p>
+    <div class="clear"></div>
+    <hr />
+    <form method="get" action="./" class="noprint">
+    <input name="filtr" type="hidden" value="2" />
+{if $smarty.get.sort}
+    <input name="sort" type="hidden" value="{$smarty.get.sort}" />
+{/if}
+    <p class="msg_head"><img src="{$ROOTPATH}img/search.gif" alt="Vyhledávání podkladů" title="Vyhledávání podkladů" /><a>Vyhledávání podkladů</a></p>
+    <div class="msg_body">
+    <table id="formtable-search">
+        <tr>
+            <td class="form-left-dod"><label for="splnenood">Datum realizace:</label></td>
+            <td class="form-right-dod"><input id="splnenood" name="splnenood" type="text" value="{if $error->IsError()}{$error->GetVal('splnenood')}{else}{$smarty.get.splnenood}{/if}" size="10" /> -
+            <input id="splnenodo" name="splnenodo" type="text" value="{if $error->IsError()}{$error->GetVal('splnenodo')}{else}{$smarty.get.splnenodo}{/if}" size="10" />
+{if $error->CheckMsg('splnenood')}
+            <span>! {$error->GetMsg('splnenood')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left-dod"><label for="id_zadavatel">Klient:</label></td>
+            <td class="form-right-dod"><select id="id_zadavatel" name="id_zadavatel">
+                <option value="">--vyberte--</option>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+{if $smarty.get.id_zadavatel == $zadavatel.id}
+                <option value="{$zadavatel.id}" selected="selected">{$zadavatel.nazev|escape}</option>
+{else}
+                <option value="{$zadavatel.id}">{$zadavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left-dod"><label for="nazev">Název úkolu:</label></td>
+            <td class="form-right-dod"><input id="nazev" name="nazev" type="text" value="{$smarty.get.nazev|escape}" size="30" /></td>
+        </tr>
+        <tr>
+            <td class="form-left-dod"><label for="klic">Klíč:</label></td>
+            <td class="form-right-dod"><input id="klic" name="klic" type="text" value="{$smarty.get.klic|escape}" size="30" /></td>
+        </tr>
+        <tr>
+            <td class="form-left-dod">Fakturováno:</td>
+	          <td class="form-right-dod"><label for="fakturad">ano</label>
+	          <input id="fakturad" name="fakturad" type="checkbox" value="1" {if $smarty.get.fakturad==1}checked="checked" {/if}/>
+	          <label for="fakturad">ne</label>
+	          <input id="fakturad" name="fakturad" type="checkbox" value="2" {if $smarty.get.fakturad==2}checked="checked" {/if}/></td>
+	      </tr>
+        <tr> 
+	          <td class="form-left-dod">Zaplaceno:</td>
+            <td class="form-right-dod"><label for="zaplacend">ano</label>
+            <input id="zaplacend" name="zaplacend" type="checkbox" value="1" {if $smarty.get.zaplacend==1}checked="checked" {/if}/>
+            <label for="zaplacend">ne</label>
+            <input id="zaplacend" name="zaplacend" type="checkbox" value="2" {if $smarty.get.zaplacend==2}checked="checked" {/if}/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="reset" id="butt_green" value="Reset" />
+            <input type="submit" id="butt_green2" value="Vyhledat" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><hr /></td>
+        </tr>
+    </table>
+    </div>
+    </form>
+    <table id="podklady">
+    <tr>
+        <th class="th-left"><span class="has-tip tip-top" title="Datum ukončení úkolu">Realizace</span></th>
+        <th><span class="has-tip tip-top" title="Název klienta">Klient</span></th>
+        <th><span class="has-tip tip-top" title="Název úkolu">Název</span></th>
+        <th><span class="has-tip tip-top" title="Počet odpracovaných hodin">Hodiny</span></th>
+        <th><span class="has-tip tip-top" title="Vaše hodinová sazba">Sazba</span></th>
+        <th><span class="has-tip tip-top" title="Rozlišovací klíčové slovo">Klíč</span></th>
+        <th><span class="has-tip tip-top" title="Suma celkem">Celkem</span></th>
+        <th><span class="has-tip tip-top" title="Stav fakturace (fakturováno/nefakturováno)">Fakt.</span></th>
+        <th><span class="has-tip tip-top" title="Stav platby (zaplaceno/nezaplaceno)">Zapl.</span></th>
+        <th class="th-right">&nbsp;</th>
+    </tr>
+    <tr class="razeni">
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_splneno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_splneno'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=splneno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='splneno'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_zadavatel{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zadavatel'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=zadavatel{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zadavatel'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_nazev'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='nazev'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_hodinyd{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_hodinyd'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=hodinyd{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='hodinyd'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_sazbad{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_sazbad'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=sazbad{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='sazbad'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_klic{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_klic'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=klic{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='klic'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_vydaje{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_vydaje'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=vydaje{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='vydaje'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_fakturad{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_fakturad'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=fakturad{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='fakturad'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?{$q}&amp;sort=_zaplacend{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zaplacend'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=zaplacend{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zaplacend'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni">&nbsp;</th>
+    </tr>
+{assign var=hodinyd value=0}
+{assign var=vydaje value=0}
+{foreach name=podklady from=$podklady->GetData() item=podklad}
+    {assign var=hodinyd value=$hodinyd+$podklad.hodinyd}
+    {assign var=vydaje value=$vydaje+$podklad.vydaje}
+    <tr{cycle values=', class="even"'}>
+        <td class="center">{if $podklad.splneno!='0000-00-00'}{$podklad.splneno|date_format:"%d.%m.%Y"}{else}nezadán{/if}</td>
+        <td style="text-align: left"><a href="?filtr=2&amp;id_zadavatel={$podklad.id_zadavatel}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{else}&amp;sort=_splneno{/if}" title="Zobrazit záznamy tohoto zadavatele">{$podklad.zadavatel|escape}</a></td>
+        <td style="text-align: left">{$podklad.nazev|escape}</td>
+        <td class="right">{$podklad.hodinyd}</td>
+        <td class="right">{$podklad.sazbad}</td>
+        <td class="center"><a href="?filtr=2&amp;klic={$podklad.klic|escape}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{else}&amp;sort=_splneno{/if}" title="Zobrazit záznamy s tímto klíčem">{$podklad.klic|escape}</a></td>
+        <td class="right">{$podklad.vydaje|string_format:"%.2f"}</td>
+        <td class="center"><input name="fakturad" type="checkbox" value="{$podklad.fakturad}" disabled="disabled" {if $podklad.fakturad}checked="checked" {/if}/></td>
+        <td class="center"><input name="zaplacend" type="checkbox" value="{$podklad.zaplacend}" disabled="disabled" {if $podklad.zaplacend}checked="checked" {/if}/></td>
+        <td class="head-icons noprint">{if $podklad.zaplacend || $podklad.fakturad}<img src="{$ROOTPATH}img/edit2.gif" alt="Upravit" title="Upravit podklad" class="has-tip tip-top" />{else}<a href="upravit.php?id={$podklad.id}"><img src="{$ROOTPATH}img/edit.gif" alt="Upravit" title="Upravit podklad" class="has-tip tip-top" /></a>{/if}{if $podklad.zaplacend || $podklad.fakturad}<a href="kopirovat.php?id={$podklad.id}"><img src="{$ROOTPATH}img/copy.gif" alt="Duplikovat" title="Duplikovat" class="has-tip tip-top" /></a>{/if}</td>
+    </tr>
+{/foreach}
+{if !$podklady->GetCount()}
+    <tr>
+        <td colspan="10" class="center">Žádný podklad.</td>
+    </tr>
+{else}
+    <tr{cycle values=', class="even"'}>
+        <td colspan="3">&nbsp;</td>
+        <td class="right"><strong>{$hodinyd|string_format:"%.2f"}</strong></td>
+        <td colspan="2">&nbsp;</td>
+        <td class="right"><strong>{$vydaje|string_format:"%.2f"}</strong></td>
+        <td colspan="3">{if $podklady->GetCount()}<!-- [ <a id="df" href="#">Fakturovat označené</a> ]  --><a id="qexp" href="export2.php?filtr=2&amp;format=1&amp;splnenood={$smarty.get.splnenood}&amp;splnenodo={$smarty.get.splnenodo}&amp;nazev={$smarty.get.nazev|escape}&amp;klic={$smarty.get.klic|escape}&amp;fakturad={$smarty.get.fakturad}&amp;zaplacend={if !isset($smarty.get.zaplacend) && !isset($smarty.get.filtr)}2{else}{$smarty.get.zaplacend}{/if}&amp;sloupce[]=1&amp;sloupce[]=2&amp;sloupce[]=3&amp;sloupce[]=5&amp;sloupce[]=6&amp;sloupce[]=7&amp;sloupce[]=8"><img src="{$ROOTPATH}img/export.gif" alt="Rychlý export do CSV" title="Rychlý export do CSV" class="has-tip tip-top" /></a>{/if}</td>
+    </tr>
+{/if}
+    </table> 
+{if $podklady->GetCount() > 50}
+{assign var=c value=$podklady->GetCount()}
+{if $smarty.get.page < 1}
+    {assign var=page value=1}
+{else}
+    {assign var=page value=$smarty.get.page}
+{/if}
+{math assign=p equation="x%y" x=$c y=50 format="%d"}
+{math assign=c equation="x/y" x=$c y=50 format="%d"}
+{if $p}
+    {math assign=c equation="x+1" x=$c format="%d"}
+{/if}
+{if $page > 2 && $c > 3}
+    {math assign=start equation="x-1" x=$page format="%d"}
+{else}
+    {assign var=start value=1}
+{/if}
+{if $start+2 > $c && $c > 3}
+    {math assign=start equation="x-2" x=$c format="%d"}
+{/if}
+    <p class="lister">
+    <a href="?{$q}&amp;page=1{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">první</a> | <a href="?{$q}&amp;page={if $page-1}{$page-1}{else}1{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">&lt;&lt; přechozí</a> |
+{section name=list start=$start loop=$c+1 max=3 step=1}
+    {if $smarty.section.list.index == $page}
+    <strong>{$smarty.section.list.index|string_format:"%02d"}</strong>
+    {else}
+    <a href="?{$q}&amp;page={$smarty.section.list.index}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">{$smarty.section.list.index|string_format:"%02d"}</a>
+    {/if}
+    {if !$smarty.section.list.last}
+     - 
+    {/if}
+{/section}
+{if $podklady->GetCount()==0}
+    <strong>--</strong>
+{/if}
+     | <a href="?{$q}&amp;page={if $page+1<$c}{$page+1}{else}{$c}{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">další &gt;&gt;</a> | <a href="?{$q}&amp;page={$c}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">poslední</a>
+    </p>
+{/if}   
+    
+{include file='footer.tpl.htm'}

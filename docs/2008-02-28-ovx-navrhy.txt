@@ -1,0 +1,15 @@
+Předmět:
+evidence new
+Od:
+"Michal Cizek [Q & A]" <michal@ovx.cz>
+Datum:
+Thu, 28 Feb 2008 09:53:06 +0100
+Komu:
+Patrik Šíma <patrik@ovx.cz>
+
+prima by bylo, kdyby mi jako podklad pro fakturaci klientu mohl vyjet vykaz
+v nejakem podobnem formatu jako v priloze.
+vzhledem k tomu, ze tam vetsinou jeste delam upravy (obcas neco jeste
+prihodim), idealni by byl excel.
+
+m.

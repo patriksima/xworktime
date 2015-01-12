@@ -1,0 +1,68 @@
+{include file='header.tpl.htm' title='Klienti' page='klienti' js='klienti-pridat.js'}
+<div id="main">
+    <h3>Klienti</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam klientů</a>
+    </p>
+    <form action="pridat2.php" method="post">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat klienta" title="Přidat klienta" /> Přidat klienta</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="id_zadavatel">Klient:</label></td>
+            <td class="form-right"><select id="id_zadavatel" name="id_zadavatel">
+                <option value="">--vyberte--</option>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+{if $error->GetVal('id_zadavatel')==$zadavatel.id}
+                <option value="{$zadavatel.id}" selected="selected">{$zadavatel.nazev|escape}</option>
+{else}
+                <option value="{$zadavatel.id}">{$zadavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_zadavatel')}
+            <span class="form-error-msg">! {$error->GetMsg('id_zadavatel')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="prist_jmeno">Přístupové jméno *:</label></td>
+            <td class="form-right"><input id="prist_jmeno" name="prist_jmeno" type="text" value="{if $error->IsError()}{$error->GetVal('prist_jmeno')|escape}{/if}" />
+{if $error->CheckMsg('prist_jmeno')}
+            <span class="form-error-msg">! {$error->GetMsg('prist_jmeno')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="prist_heslo">Přístupové heslo *:</label></td>
+            <td class="form-right"><input id="prist_heslo" name="prist_heslo" type="text" value="{if $error->IsError()}{$error->GetVal('prist_heslo')|escape}{else}{password length='10'}{/if}" />
+{if $error->CheckMsg('prist_heslo')}
+            <span class="form-error-msg">! {$error->GetMsg('prist_heslo')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="email">E-mail *:</label></td>
+            <td class="form-right"><input id="email" name="email" type="text" value="{if $error->IsError()}{$error->GetVal('email')|escape}{else}@{/if}" />
+{if $error->CheckMsg('email')}
+            <span class="form-error-msg">! {$error->GetMsg('email')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Přidat" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam klientů</a>
+    </p>
+{include file='footer.tpl.htm'}

@@ -1,0 +1,141 @@
+{include file='header.tpl.htm' title='Klienti' page='zadavatele' js='zadavatele.js'}
+{if $help}
+<div id="dialog-message" title="Klienti">
+	<p>
+		<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 230px 0;"></span>
+        Zde se zobrazují <strong>vaši klienti</strong>.
+    </p>
+    <p>
+        V tabulce se zobrazuje název klienta a jednoduchý finanční přehled.
+    </p>
+    <p>
+        <strong>Základní vlastnosti:</strong>
+    </p>
+    <ul>
+        <li>přidávání, úprava a mazání klientů</li>
+        <li>zobrazení podkladů pro klienty</li>
+        <li>zobrazení nevyfakturovaných podkladů</li>
+        <li>zobrazení nezaplacených podkladů</li>
+        <li>řazení</li>
+        <li>vyhledávání</li>
+    </ul>
+</div>
+{literal}
+<script>
+    $( "#dialog-message" ).dialog({
+        modal: false,
+        show: 'slide',
+        hide: 'fade',
+        minWidth: '500',
+        buttons: {
+            'OK, již nezobrazovat': function() {
+                $.cookie('help_zadavatele', 'off', {domain: '.xworktime.com', expires: 999, path: '/'})
+                $( this ).dialog( "close" );
+            }
+        }
+    })
+    $( "#dialog-message" ).dialog('open')
+</script>
+{/literal}
+{/if}
+<div id="main">
+    <h3>Klienti</h3>
+    {assign var=q value=$smarty.server.QUERY_STRING}
+    {assign var=q value=$q|regex_replace:"/&*sort=[_a-z]+/":""}
+    {assign var=q value=$q|regex_replace:"/&*page=[0-9]+/":""}
+    <p><span class="pocet">Počet záznamů: {$zadavatele->GetCount()}</span></p>
+    <hr />
+    <form method="get" action="./" class="noprint">
+    <p>
+        <label for="nazev">Název klienta:</label>
+        <input id="nazev" name="nazev" type="text" value="{$smarty.get.nazev|escape}" /><input id="butt_vyhledat" type="submit" value="Vyhledat" />
+{if $smarty.get.sort}
+        <input name="sort" type="hidden" value="{$smarty.get.sort}" />
+{/if}
+    </p>
+    </form>
+    <table>
+    <tr>
+        <th class="th-left"><span class="has-tip tip-top" title="Název klienta">Klient</span></th>
+        <th><span class="has-tip tip-top" title="Základní hodinová sazba, kterou klientovi účtujete">Sazba</span></th>
+        <th><span class="has-tip tip-top" title="Částka, kterou jsme vyfakturovali, ale zatím není zaplacena">Dluží</span></th>
+        <th><span class="has-tip tip-top" title="Částka, kterou jsme fakturovali a je již zaplacena">Zaplatili</span></th>
+        <th><span class="has-tip tip-top" title="Náklady, které připadají na vyfakturované podklady">Náklady</span></th>
+        <th><span class="has-tip tip-top" title="Zisk = zaplaceno mínus náklady">Zisk</span></th>
+        <th><span class="has-tip tip-top" title="Nefakturováno = hodiny x sazba">Nefakt.</span></th>
+        <th class="th-right"><a href="{$ROOTPATH}zadavatele/pridat.htm"><img src="{$ROOTPATH}img/add.gif" alt="Přidat klienta" title="Přidat klienta" class="has-tip tip-top" /></a></th>
+    </tr>
+    <tr class="razeni">
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_nazev'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='nazev'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_sazba{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_sazba'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=sazba{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='sazba'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_dluh{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_dluh'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=dluh{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='dluh'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_zaplaceno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zaplaceno'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=zaplaceno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zaplaceno'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_naklady{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_naklady'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=naklady{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='naklady'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_zisk{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zisk'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=zisk{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zisk'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni"><a href="?{$q}&amp;sort=_nefakturovano{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_nefakturovano'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?{$q}&amp;sort=nefakturovano{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='nefakturovano'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+      <th class="td-razeni">&nbsp;</th>
+    </tr>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+    <tr{cycle values=', class="even"'}>
+        <td class="left">{$zadavatel.nazev|escape}</td>
+        <td class="right">{if $zadavatel.sazba==0}zdarma{else}{$zadavatel.sazba|string_format:"%d"}{/if}</td>
+        <td class="right">{$zadavatel.dluh|string_format:"%.2f"}</td>
+        <td class="right">{$zadavatel.zaplaceno|string_format:"%.2f"}</td>
+        <td class="right">{$zadavatel.naklady|string_format:"%.2f"}</td>
+        <td class="right">{$zadavatel.zisk|string_format:"%.2f"}</td>
+        <td class="right">{$zadavatel.nefakturovano|string_format:"%.2f"}</td>
+        <td class="head-icons"><a href="{$ROOTPATH}zadavatele/smazat.php?id={$zadavatel.id}" onclick="return confirm('Opravdu smazat?')"><img src="{$ROOTPATH}img/delete.gif" alt="Smazat" title="Smazat klienta" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}zadavatele/upravit.php?id={$zadavatel.id}"><img src="{$ROOTPATH}img/edit.gif" alt="Upravit" title="Upravit klienta" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}podklady/?filtr=2&amp;id_zadavatel={$zadavatel.id}"><img src="{$ROOTPATH}img/docs.gif" alt="Podklady" title="Zobrazit podklady pro klienta" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}podklady/?filtr=2&amp;id_zadavatel={$zadavatel.id}&amp;fakturaz=2"><img src="{$ROOTPATH}img/nevyfakturovane.gif" alt="Nevyfakturované" title="Zobrazit nevyfakturované podklady" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}podklady/?filtr=2&amp;id_zadavatel={$zadavatel.id}&amp;fakturaz=1&amp;zaplacenz=2"><img src="{$ROOTPATH}img/nezaplacene.gif" alt="Nezaplacené" title="Zobrazit nezaplacené podklady" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}podpora/?id_helpdesk={$zadavatel.id_helpdesk}"><img src="{$ROOTPATH}img/helpdesk.gif" alt="Helpdesk" title="Odkaz na helpdesk klienta" class="has-tip tip-top" /></a></td>
+    </tr>
+{/foreach}
+{if !$zadavatele->GetCount()}
+    <tr>
+        <td colspan="8" class="center">Žádný zadavatel. [ <a href="pridat.php">přidat</a> ]</td>
+    </tr>
+{/if}
+    </table>
+    
+{if $zadavatele->GetCount() > 20}
+{assign var=c value=$zadavatele->GetCount()}
+{if $smarty.get.page < 1}
+    {assign var=page value=1}
+{else}
+    {assign var=page value=$smarty.get.page}
+{/if}
+{math assign=p equation="x%y" x=$c y=20 format="%d"}
+{math assign=c equation="x/y" x=$c y=20 format="%d"}
+{if $p}
+    {math assign=c equation="x+1" x=$c format="%d"}
+{/if}
+{if $page > 2 && $c > 3}
+    {math assign=start equation="x-1" x=$page format="%d"}
+{else}
+    {assign var=start value=1}
+{/if}
+{if $start+2 > $c && $c > 3}
+    {math assign=start equation="x-2" x=$c format="%d"}
+{/if}
+    <p class="lister">
+    <a href="?{$q}&amp;page=1{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">první</a> | <a href="?{$q}&amp;page={if $page-1}{$page-1}{else}1{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">&lt;&lt; přechozí</a> |
+{section name=list start=$start loop=$c+1 max=3 step=1}
+    {if $smarty.section.list.index == $page}
+    <strong>{$smarty.section.list.index|string_format:"%02d"}</strong>
+    {else}
+    <a href="?{$q}&amp;page={$smarty.section.list.index}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">{$smarty.section.list.index|string_format:"%02d"}</a>
+    {/if}
+    {if !$smarty.section.list.last}
+     - 
+    {/if}
+{/section}
+{if $zadavatele->GetCount()==0}
+    <strong>--</strong>
+{/if}
+     | <a href="?{$q}&amp;page={if $page+1<$c}{$page+1}{else}{$c}{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">další &gt;&gt;</a> | <a href="?{$q}&amp;page={$c}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">poslední</a>
+    </p>
+{/if}        
+    
+{include file='footer.tpl.htm'}

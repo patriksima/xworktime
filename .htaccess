@@ -1,0 +1,39 @@
+RewriteEngine On
+
+RewriteBase /
+
+# odkomentuj v pripade upgradu aplikace
+#RewriteCond %{REQUEST_URI} !upgrade\.php$
+#RewriteRule \.(htm|php)$ upgrade.php [R=301]
+
+RewriteCond %{REQUEST_URI} !\.[[:alnum:]]+$
+RewriteRule ^(.+[^./])$ $1/ [R=301]
+
+RewriteRule ^podklady/$ podklady.php [QSA,L]
+RewriteRule ^podklady/([^./]+)\.(htm|php)$ podklady-$1.php [QSA,L]
+
+RewriteRule ^ukoly/$ ukoly.php [QSA,L]
+RewriteRule ^ukoly/([^./]+)\.(htm|php)$ ukoly-$1.php [QSA,L]
+
+RewriteRule ^zadavatele/$ zadavatele.php [QSA,L]
+RewriteRule ^zadavatele/([^./]+)\.(htm|php)$ zadavatele-$1.php [QSA,L]
+
+RewriteRule ^dodavatele/$ dodavatele.php [QSA,L]
+RewriteRule ^dodavatele/([^./]+)\.(htm|php)$ dodavatele-$1.php [QSA,L]
+
+RewriteRule ^uzivatele/$ uzivatele.php [QSA,L]
+RewriteRule ^uzivatele/([^./]+)\.(htm|php)$ uzivatele-$1.php [QSA,L]
+
+RewriteRule ^klienti/$ klienti.php [QSA,L]
+RewriteRule ^klienti/([^./]+)\.(htm|php)$ klienti-$1.php [QSA,L]
+
+RewriteRule ^helpdesk/$ helpdesk.php [QSA,L]
+RewriteRule ^helpdesk/([^./]+)\.(htm|php)$ helpdesk-$1.php [QSA,L]
+
+RewriteRule ^dodavatel/podklady/$ dodavatel/podklady.php [QSA,L]
+RewriteRule ^dodavatel/podklady/([^./]+)\.(htm|php)$ dodavatel/podklady-$1.php [QSA,L]
+
+<Files git-ftp.py>
+order deny,allow
+deny from all
+</Files>

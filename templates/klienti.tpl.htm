@@ -1,0 +1,111 @@
+{include file='header.tpl.htm' title='Klienti' page='klienti' js='klienti.js'}
+{if $help}
+<div id="dialog-message" title="Klienti">
+	<p>
+		<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 230px 0;"></span>
+        Zde se zobrazují <strong>přístupové účty klientů</strong>, kteří mají přístup do klientské části.
+        Klientský přístup je především určen pro ty zákazníky, kteří chtějí mít přehled o stavu svých zakázek.
+    </p>
+    <p>
+        V tabulce se zobrazuje přístupové jméno, e-mail
+    </p>
+    <p>
+        <strong>Základní vlastnosti:</strong>
+    </p>
+    <ul>
+        <li>přidávání, úprava a mazání uživatelů</li>
+        <li>vytvoření přístupu pro klienta</li>
+        <li>řazení</li>
+    </ul>
+</div>
+{literal}
+<script>
+    $( "#dialog-message" ).dialog({
+        modal: false,
+        show: 'slide',
+        hide: 'fade',
+        minWidth: '500',
+        buttons: {
+            'OK, již nezobrazovat': function() {
+                $.cookie('help_klienti', 'off', {domain: '.xworktime.com', expires: 999, path: '/'})
+                $( this ).dialog( "close" );
+            }
+        }
+    })
+    $( "#dialog-message" ).dialog('open')
+</script>
+{/literal}
+{/if}
+<div id="main">
+    <h3>Přístupové účty klientů</h3>
+    <p><span class="pocet">Počet záznamů: {$klienti->GetCount()}</span></p>
+    <hr />
+    <table>
+    <tr>
+        <th class="th-left">Klient</th>
+        <th>Příst. jméno</th>
+        <th>E-mail</th>
+        <th class="th-right"><a href="{$ROOTPATH}klienti/pridat.htm"><img src="{$ROOTPATH}img/add.gif" alt="Přidat přístup klienta" title="Přidat přístup klienta" class="has-tip tip-top" /></a></th>
+    </tr>
+    <tr class="razeni">
+        <th class="td-razeni"><a href="?sort=_nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_nazev'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?sort=nazev{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='nazev'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?sort=_prist_jmeno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_prist_jmeno'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?sort=prist_jmeno{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='prist_jmeno'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="?sort=_email{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_email'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="?sort=email{if $smarty.get.page}&amp;page={$smarty.get.page}{/if}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='email'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni">&nbsp;</th>
+    </tr>
+{foreach name=klienti from=$klienti->GetData() item=klient}
+    <tr{cycle values=', class="even"'}>
+        <td class="left">{$klient.nazev|escape}</td>
+        <td style="text-align: left">{$klient.prist_jmeno|escape}</td>
+        <td style="text-align: left">{if $klient.email}{mailto address=$klient.email}{/if}</td>
+        <td class="nowrap noprint"><a href="{$ROOTPATH}klienti/smazat.php?id={$klient.id}" onclick="return confirm('Opravdu smazat?')" title="Smazat"><img src="{$ROOTPATH}img/delete.gif" title="Smazat přístup klienta" class="has-tip tip-top" /></a>
+            <a href="{$ROOTPATH}klienti/upravit.php?id={$klient.id}" title="Upravit"><img src="{$ROOTPATH}img/edit.gif" title="Upravit přístup klienta" class="has-tip tip-top" /></a></td>
+    </tr>
+{/foreach}
+{if !$klienti->GetCount()}
+    <tr>
+        <td colspan="4" class="center">Žádný klient. [ <a href="pridat.php">přidat</a> ]</td>
+    </tr>
+{/if}
+    </table>
+    
+{if $klienti->GetCount() > 20}
+{assign var=c value=$klienti->GetCount()}
+{if $smarty.get.page < 1}
+    {assign var=page value=1}
+{else}
+    {assign var=page value=$smarty.get.page}
+{/if}
+{math assign=p equation="x%y" x=$c y=20 format="%d"}
+{math assign=c equation="x/y" x=$c y=20 format="%d"}
+{if $p}
+    {math assign=c equation="x+1" x=$c format="%d"}
+{/if}
+{if $page > 2 && $c > 3}
+    {math assign=start equation="x-1" x=$page format="%d"}
+{else}
+    {assign var=start value=1}
+{/if}
+{if $start+2 > $c && $c > 3}
+    {math assign=start equation="x-2" x=$c format="%d"}
+{/if}
+    <p class="lister">
+    <a href="?{$q}&amp;page=1{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">první</a> | <a href="?{$q}&amp;page={if $page-1}{$page-1}{else}1{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">&lt;&lt; přechozí</a> |
+{section name=list start=$start loop=$c+1 max=3 step=1}
+    {if $smarty.section.list.index == $page}
+    <strong>{$smarty.section.list.index|string_format:"%02d"}</strong>
+    {else}
+    <a href="?{$q}&amp;page={$smarty.section.list.index}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">{$smarty.section.list.index|string_format:"%02d"}</a>
+    {/if}
+    {if !$smarty.section.list.last}
+     - 
+    {/if}
+{/section}
+{if $klienti->GetCount()==0}
+    <strong>--</strong>
+{/if}
+     | <a href="?{$q}&amp;page={if $page+1<$c}{$page+1}{else}{$c}{/if}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">další &gt;&gt;</a> | <a href="?{$q}&amp;page={$c}{if $smarty.get.sort}&amp;sort={$smarty.get.sort}{/if}">poslední</a>
+    </p>
+{/if}        
+    
+{include file='footer.tpl.htm'}

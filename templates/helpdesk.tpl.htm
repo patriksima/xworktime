@@ -1,0 +1,122 @@
+{include file='header.tpl.htm' title='Helpdesk' page='helpdesk' js='helpdesk.js'}
+{if $help}
+<div id="dialog-message" title="Helpdek">
+    <p>
+        <span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 230px 0;"></span>
+        Zde můžete některým klientům vytvořit <strong>helpdesk systém</strong>. Klient pak může na zvláštní adrese zadávat požadavky, které se automaticky přidělí určitému dodavateli (vazba dle typu práce).
+    </p>
+    <p>
+        <strong>Odkaz na helpdesk najdete v sekci Klienti (modrá ikona na konci každého řádku).</strong>
+    </p>
+    <p>
+        V tabulce se zobrazují vazby, který dodavatel řeší jaké požadavky pro klienta.
+    </p>
+    <p>
+        <strong>Základní vlastnosti:</strong>
+    </p>
+    <ul>
+        <li>přidávání a mazání vazeb</li>
+        <li>řazení</li>
+    </ul>
+</div>
+{literal}
+<script>
+    $( "#dialog-message" ).dialog({
+        modal: false,
+        show: 'slide',
+        hide: 'fade',
+        minWidth: '500',
+        buttons: {
+            'OK, již nezobrazovat': function() {
+                $.cookie('help_helpdesk', 'off', {domain: '.xworktime.com', expires: 999, path: '/'})
+                $( this ).dialog( "close" );
+            }
+        }
+    })
+    $( "#dialog-message" ).dialog('open')
+</script>
+{/literal}
+{/if}
+<div id="main">
+    <h3>Helpdesk</h3>
+
+    <p><span class="pocet">Počet záznamů: {$helpdesk->GetCount()}</span></p>
+    <hr />
+
+    <table id="helpdesk">
+    <tr>
+        <th>Klient</th>
+        <th>Dodavatel</th>
+        <th><span class="has-tip tip-top" data-width="250" title="Rozlišovací klíčové slovo, dle kterého bude přiřazen požadavek, např. název projektu. Povinná položka.">Typ práce</span></th>
+        <th><span class="has-tip tip-top" data-width="250" title="Zda má klient právo upravovat své požadavky.">Právo editace</span></th>
+        <th class="th-right"><a href="{$ROOTPATH}helpdesk/pridat.php"><img src="{$ROOTPATH}img/add.gif" alt="Přidat vazbu" title="Přidat vazbu" class="has-tip tip-top" /></a></th>
+    </tr>
+    <tr class="razeni">
+        <th class="td-razeni"><a href="{$Q->S('sort','_zadavatel')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_zadavatel'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','zadavatel')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='zadavatel'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_dodavatel')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_dodavatel'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','dodavatel')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='dodavatel'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_typ')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_typ'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','typ')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='typ'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni"><a href="{$Q->S('sort','_prava')}"><img src="{$ROOTPATH}img/dolu{if $smarty.get.sort=='_prava'}red{/if}.gif" width="29" height="12" alt="Sestupně" /></a><a href="{$Q->S('sort','prava')}"><img src="{$ROOTPATH}img/nahoru{if $smarty.get.sort=='prava'}red{/if}.gif" width="29" height="12" alt="Vzestupně" /></a></th>
+        <th class="td-razeni">&nbsp;</th>
+    </tr>
+{foreach name=helpdesk from=$helpdesk->GetData() item=relation}
+    <tr{if $smarty.foreach.helpdesk.index%2} class="even"{/if}>
+        <td style="text-align: left"><a href="{$Q->S('filtr',2,'id_zadavatel',$relation.id_zadavatel)}" title="Zobrazit záznamy tohoto zadavatele">{$relation.zadavatel|escape}</a></td>
+        <td style="text-align: left"><a href="{$Q->S('filtr',2,'id_dodavatel',$relation.id_dodavatel)}" title="Zobrazit záznamy tohoto dodavatele">{$relation.dodavatel|escape}</a></td>
+        <td style="text-align: left"><a href="{$Q->S('filtr',2,'typ',$relation.typ)}" title="Zobrazit záznamy s tímto typem">{$relation.typ|escape}</a></td>
+        <td style="text-align: center">{if $relation.prava==1}ano{else}ne{/if}</td>
+        <td class="head-icons"><a href="{$ROOTPATH}helpdesk/smazat.php?id={$relation.id}" onclick="return helpdesk_ajax($(this))"><img src="{$ROOTPATH}img/delete.gif" alt="Smazat" title="Smazat vazbu" class="has-tip tip-top" /></a></td>
+    </tr>
+{/foreach}
+{if !$helpdesk->GetCount()}
+{if isset($smarty.get.filtr)}
+    <tr>
+        <td colspan="5" class="center">Nic nenalezeno.</td>
+    </tr>
+{else}
+    <tr>
+        <td colspan="5" class="center">Žádná vazba. [ <a href="pridat.php">přidat</a> ]</td>
+    </tr>
+{/if}
+{/if}
+    </table>
+
+{if $helpdesk->GetCount() > 50}
+{assign var=c value=$helpdesk->GetCount()}
+{if $smarty.get.page < 1}
+    {assign var=page value=1}
+{else}
+    {assign var=page value=$smarty.get.page}
+{/if}
+{math assign=p equation="x%y" x=$c y=50 format="%d"}
+{math assign=c equation="x/y" x=$c y=50 format="%d"}
+{if $p}
+    {math assign=c equation="x+1" x=$c format="%d"}
+{/if}
+{if $page > 2 && $c > 3}
+    {math assign=start equation="x-1" x=$page format="%d"}
+{else}
+    {assign var=start value=1}
+{/if}
+{if $start+2 > $c && $c > 3}
+    {math assign=start equation="x-2" x=$c format="%d"}
+{/if}
+    <p class="lister">
+    <a href="{$Q->S('page','1')}">první</a> | <a href="{if $page-1}{$Q->S('page',$page-1)}{else}{$Q->S('page','1')}{/if}">&lt;&lt; přechozí</a> |
+{section name=list start=$start loop=$c+1 max=3 step=1}
+    {if $smarty.section.list.index == $page}
+    <strong>{$smarty.section.list.index|string_format:"%02d"}</strong>
+    {else}
+    <a href="{$Q->S('page',$smarty.section.list.index)}">{$smarty.section.list.index|string_format:"%02d"}</a>
+    {/if}
+    {if !$smarty.section.list.last}
+     - 
+    {/if}
+{/section}
+{if $ukoly->GetCount()==0}
+    <strong>--</strong>
+{/if}
+     | <a href="{if $page+1<$c}{$Q->S('page',$page+1)}{else}{$Q->S('page',$c)}{/if}">další &gt;&gt;</a> | <a href="{$Q->S('page',$c)}">poslední</a>
+    </p>
+{/if}        
+    
+{include file='footer.tpl.htm'}

@@ -1,0 +1,93 @@
+- ukoly - dokoncene, sede
+- admin - mystery user bez hesla pro posilani mailu z helpdesku - jinak nema komu co prijit
+- dodavatel - v chatu nad edit dát text úkolu
+- dodavatel - nevidí přílohy
+- dodavatel - storno ukolu s duvodem, ze proste uz na nej nema cas, naladu ...
+
+- helpdesk - moznost editovat ukol klientem
+
+-anketa na web, jake rozsireni by lidi chteli + emailovy odber novinek - nekteri treba cekaji at to vyroste
+
+- zmenit role: admin, financik, projektak, dodavatel, klient
+
+- pridat do configu a emailu Reply-to na majitele instance
+
+
+- zkusit implementovat getpapricu
+
+- opravit v zadavatelich naklady
+
+- dodavatele spise otagovat nez napevno prirazovat povolani
+- event table (id, datum, tabulka, akce)- pro externi aplikace, kde se zapisuje pomoci trigeru akce. stare eventy se casem mazou, at se tabulka zbytecne neplni.
+
+(16:25:19) Michal Čížek: mluvili jsme ale o tom, ze misto prenasobovani koeficientem dodvatele by bylo mozne prenasobovat koeficientem zadavatele
+
+- vyberovka - zadam ukol a ten se rozsesle vsem registrovanym na tento typ ukolu,
+  kdo reaguje prvni (mozna licitaqce o cenu a cas), tak ten to dela
+
+- dod - PS: nešel by ten rychlý export v podkladech nastavit na export pouze těch položek, které nebyly fakturovány? Díky
+- admin - moznost po dokonceni ukolu odeslat email klientovi - napr. dokoncena aktualizace novinek pote co to tester uzavre jako ok
+- admin - zavislosti mezi ukoly - jeden dokonci, zalozi se dalsi
+- admin - statistiky vytizenosti dodavatelu, pomer ukol/hodiny apod.
+- admin - opravit export, u podkladu zobr. i dod. hodiny, mozna i koeficient
+- dodavatel - moznost zadat vice typu, moznost vyfiltrovat si dle typu
+- admin - podklady - u klicovych slov dodelat roletku dle vybraneho zadavatele
+- dodavatel - procentualni vyuziti (pocet jeho ukolu/pocet celkem nebo pocet celkem daneho typu ukolu)
+- dodavatel si muze zadat svou dovolenou nebo dobu nepritomnosti, v danou dobu
+  nebude v roletce, v seznamu bude odlisen jinou barvou
+
+Opakovane ukoly - napr. citroen? jak to resit?
+
+Jak resit: pri pridani ukolu pro jednoduchoste nedefinuji sazbu zadavatele - automaticky
+se vlozi zakladni, ale kdyz to chci za jinou, musim po splneni podklad editovat a zmenit to :(
+
+Zkus ajax hlidac eventu? (proebiz)
+
+- DODAVATEL - co ho opravdu zajima?
+  - chce videt, jaky ma ukol a ceho se tyka (ostatni posilame mailem, nejak to provazat?)
+  - kolik mu dluzime a kdy mu to zaplatime
+    - mohl by mit moznost oznacit podklady, ktere chce nechat zaplatit (oznaci se nam jako fakturovane)
+    - jako zivnostnik muze chtit - oznacit podklady, fakturovat a odeslat mailem, az to my zaplatime,
+      mel by to u svych podkladu videt
+  - chce si menit heslo, mail a osobni udaje
+  - muze mi poslat rychlou zpravu? dotaz k ukolu? bude to k necemu?
+  - filtrovani ukolu je zbytecne, budou jen ty co ma udelat
+  - filtrovani podkladu? zobrazit jen nezaplacene (jejich stav)?
+  - jak radit ukoly? prvni prijate a horici a pak nove podle terminu?
+  - kdyz prijme ukol a zatim jej nesplni nema co upravovat - jedine termin, takze bych nabidnul pouze
+    splnen/nestiham termin, navrhuji jiny nebo tak neco
+    
+
+- moznost skryt v seznamech dod,zad,webu, klicu jiz neaktivni veci (nelze totiz smazat pro zpetne dohledani)
+
+- logovani
+- edit mailu a notifikacnich adres
+- edit dod. typ, dod. stabilita
+
+- sazba i v jine mene (EURO, DOLAR)
+
+- dodavatel - nastaveni, faktury...
+
+- exporty - pdf, doc, xls, csv
+- faktury
+- filtry
+
+- testovat rozdil mezi novymi a starymi daty a posilat notifikaci pouze pri zmene (ukol, podklad)
+
+- dodelat install
+
+- personalizovat titulku (nekdo chce prvni prehled, nekdo ukoly - ja, druhy podklady - michal)
+
+- zvyrazneni policka v kterem mam kurzor napr. oramovanim jak to ma karel v administraci cykloserveru
+
+- u datumu pridat kalendar a format data
+- cronem kontrolovat horici a prosle ukoly a upozornovat emailem
+
+- kontrolovat, zda nepřidávám již existujicích zadavatele/dodavatele
+- soap/xml konektory
+
+
+DONE
+====================================
+- pro jednotlivce - moznost sebe vyradit ze statistik, at se nemusim furt odskrtavat jako zaplaceny - asi nejaky checkbox u uzivatele
+- OVPCR: diskuze k ukolu - dodavatel potrebuje doplnit zadani atd.

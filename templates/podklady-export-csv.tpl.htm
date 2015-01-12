@@ -1,0 +1,34 @@
+{if in_array(1,$smarty.get.sloupce)}"Datum",{/if}
+{if in_array(2,$smarty.get.sloupce)}"Zadavatel",{/if}
+{if in_array(3,$smarty.get.sloupce)}"Dodavatel",{/if}
+{if in_array(4,$smarty.get.sloupce)}"Položka",{/if}
+{if in_array(5,$smarty.get.sloupce)}"Popis položky",{/if}
+{if in_array(11,$smarty.get.sloupce)}"Klíè",{/if}
+{if in_array(6,$smarty.get.sloupce)}"Èas",{/if}
+{if in_array(7,$smarty.get.sloupce)}"Sazba",{/if}
+{if in_array(8,$smarty.get.sloupce)}"Sazba",{/if}
+{if in_array(9,$smarty.get.sloupce)}"Celkem",{/if}
+{if in_array(10,$smarty.get.sloupce)}"Náklady",{/if}
+{if in_array(12,$smarty.get.sloupce)}"ZF",{/if}
+{if in_array(13,$smarty.get.sloupce)}"ZZ",{/if}
+{if in_array(14,$smarty.get.sloupce)}"DF",{/if}
+{if in_array(15,$smarty.get.sloupce)}"DZ",{/if}
+;
+{foreach name=podklady from=$podklady->GetData() item=podklad}
+{if in_array(1,$smarty.get.sloupce)}"{if $podklad.splneno!='0000-00-00'}{$podklad.splneno|date_format:"%d.%m.%Y"}{else}nezadán{/if}",{/if}
+{if in_array(2,$smarty.get.sloupce)}"{$podklad.zadavatel}",{/if}
+{if in_array(3,$smarty.get.sloupce)}"{$podklad.dodavatel}",{/if}
+{if in_array(4,$smarty.get.sloupce)}"{$podklad.nazev}",{/if}
+{if in_array(5,$smarty.get.sloupce)}"{$podklad.popis}",{/if}
+{if in_array(11,$smarty.get.sloupce)}"{$podklad.klic}",{/if}
+{if in_array(6,$smarty.get.sloupce)}"{$podklad.hodinyz|string_format:"%.2f"|replace:",":"."}",{/if}
+{if in_array(7,$smarty.get.sloupce)}"{$podklad.sazbaz|string_format:"%.2f"|replace:",":"."}",{/if}
+{if in_array(8,$smarty.get.sloupce)}"{$podklad.sazbad|string_format:"%.2f"|replace:",":"."}",{/if}
+{if in_array(9,$smarty.get.sloupce)}"{$podklad.prijmy|string_format:"%.2f"|replace:",":"."}",{/if}
+{if in_array(10,$smarty.get.sloupce)}"{$podklad.vydaje|string_format:"%.2f"|replace:",":"."}",{/if}
+{if in_array(12,$smarty.get.sloupce)}"{$podklad.fakturaz}",{/if}
+{if in_array(13,$smarty.get.sloupce)}"{$podklad.zaplacenz}",{/if}
+{if in_array(14,$smarty.get.sloupce)}"{$podklad.fakturad}",{/if}
+{if in_array(15,$smarty.get.sloupce)}"{$podklad.zaplacend}",{/if}
+;
+{/foreach}

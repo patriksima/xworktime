@@ -1,0 +1,50 @@
+{config_load file="smarty.conf"}
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+    <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-language" content="cs" />
+    <meta http-equiv="Cache-Control"    content="must-revalidate, post-check=0, pre-check=0" /> 
+    <meta http-equiv="Pragma"           content="public" />
+    <meta http-equiv="Cache-Control"    content="no-cache" /> 
+    <meta http-equiv="Pragma"           content="no-cache" /> 
+    <meta http-equiv="Expires"          content="-1" /> 
+    <title>XWorkTime{if $title!=''} | {$title}{/if}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{$ROOTPATH}img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/login.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="{$ROOTPATH}css/default-print.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/south-street/jquery-ui-1.10.0.custom.min.css" />    
+{if $css}
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/{$css}" />
+{/if}
+{literal}
+    <script type="text/javascript">
+    window.jsErrors = [];
+    window.onerror = function(errorMessage) {
+      window.jsErrors.push(errorMessage);
+    }
+    </script>
+{/literal}
+    <script src="{$ROOTPATH}js/jquery-1.9.0.min.js"></script>
+    <script src="{$ROOTPATH}js/jquery-ui.min.js"></script>
+    <script src="{$ROOTPATH}js/jquery.tooltips.js"></script>
+{if $js}
+    <script src="{$ROOTPATH}js/{$js}"></script>
+{/if}
+{literal}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-235489-18']);
+      _gaq.push(['_setDomainName', 'xworktime.com']);
+      _gaq.push(['_setAllowHash', 'false']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+{/literal}
+</head>

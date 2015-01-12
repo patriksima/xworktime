@@ -1,0 +1,48 @@
+{include file='header.tpl.htm' js='ukol-prijmout.js'}
+<div id="main">
+    <h3>Úkoly</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+    <form action="ukol-prijmout2.php?id={if $smarty.get.id}{$smarty.get.id}{else}{$ukol->Get('id')}{/if}" method="post">
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    <fieldset>
+        <legend><img src="../img/prijmout.gif" alt="Přijetí úkolu" title="Přijetí úkolu" /> Přijetí úkolu</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="zadavatel">Klient:</label></td>
+            <td class="form-right"><input class="disabled" id="zadavatel" name="zadavatel" type="text" value="{$zadavatel->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název:</label></td>
+            <td class="form-right"><input class="disabled" id="nazev" name="nazev" type="text" value="{$ukol->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="popis">Popis úkolu:</label></td>
+            <td class="form-right"><textarea class="disabled" id="popis" name="popis" rows="5" cols="40" readonly="readonly">{$ukol->Get('popis')|escape}</textarea>
+            {if $priloha}<br />Příloha: <a href="../podpora/upload/{$priloha->Get('soubor')}">{$priloha->Get('nazev')}</a>{/if}</td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="termin">Termín dokončení (RRRR-MM-DD)*:</label></td>
+            <td class="form-right"><input id="termin" name="termin" type="text" value="{if $error->IsError()}{$error->GetVal('termin')}{else}{if $ukol->Get('termin')!='0000-00-00'}{$ukol->Get('termin')}{else}{$smarty.now|date_format:"%Y-%m-%d"}{/if}{/if}" />
+{if $error->CheckMsg('termin')}
+            <span class="form-error-msg">! {$error->GetMsg('termin')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Potvrdit" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+{include file='footer.tpl.htm'}

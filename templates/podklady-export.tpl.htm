@@ -1,0 +1,163 @@
+{include file='header.tpl.htm' title='Podklady' page='podklady' js='podklady-export.js'}
+<div id="main">
+    <h3>Podklady</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+    <form action="export2.php" method="get">
+    <p>
+    <input name="filtr" type="hidden" value="1" />
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    </p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/export.gif" alt="Export podkladů" title="Export podkladů" style="margin-right: 5px"/>Export podkladů</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label><strong>Filtrovací podmínky</strong></label></td>
+            <td class="form-right"> </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="splnenood">Datum realizace:</label></td>
+            <td class="form-right"><input id="splnenood" name="splnenood" type="text" value="{$smarty.get.splnenood}" size="10" /> -
+            <input id="splnenodo" name="splnenodo" type="text" value="{$smarty.get.splnenodo}" size="10" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="id_zadavatel">Klient:</label></td>
+            <td class="form-right"><select id="id_zadavatel" name="id_zadavatel">
+                <option value="">--vyberte--</option>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+{if $smarty.get.id_zadavatel == $zadavatel.id}
+                <option value="{$zadavatel.id}" selected="selected">{$zadavatel.nazev|escape}</option>
+{else}
+                <option value="{$zadavatel.id}">{$zadavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="id_dodavatel">Dodavatel:</label></td>
+            <td class="form-right"><select id="id_dodavatel" name="id_dodavatel">
+                <option value="">--vyberte--</option>
+{foreach name=dodavatele from=$dodavatele->GetData() item=dodavatel}
+{if $smarty.get.id_dodavatel == $dodavatel.id}
+                <option value="{$dodavatel.id}" selected="selected">{$dodavatel.nazev|escape}</option>
+{else}
+                <option value="{$dodavatel.id}">{$dodavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název práce:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" value="{$smarty.get.nazev}" size="60" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="klic">Klíčové slovo:</label></td>
+            <td class="form-right"><select id="klic" name="klic">
+                <option value="">--vyberte--</option>
+{assign var='found' value=0}
+{foreach name=klice from=$klice->GetData() item=klic}
+{if $smarty.get.klic==$klic.klic}{assign var='found' value=1}
+                <option value="{$klic.klic}" selected="selected">{$klic.klic}</option>
+{else}
+                <option value="{$klic.klic}">{$klic.klic}</option>
+{/if}
+{/foreach}
+            </select>
+            <input id="klic2" name="klic2" type="text" value="{if $smarty.get.klic!='' && !$found}{$smarty.get.klic}{else}{$smarty.get.klic2}{/if}" size="10" />
+        </tr>
+        <tr><td colspan="2" style="text-align: left"><strong>Klient</strong></td></tr>
+        <tr>
+        <td class="form-left">Fakturováno:</td>
+        <td class="form-right"><label for="fakturaz">ano</label>
+          <input id="fakturaz" name="fakturaz" type="checkbox" value="1" {if $smarty.get.fakturaz==1}checked="checked" {/if}/>
+          <label for="fakturaz">ne</label>
+          <input id="fakturaz" name="fakturaz" type="checkbox" value="2" {if $smarty.get.fakturaz==2}checked="checked" {/if}/>
+        </td>
+        </tr>
+        <tr>
+        <td class="form-left">Zaplaceno:</td>
+        <td class="form-right"><label for="zaplacenz">ano</label>
+        <input id="zaplacenz" name="zaplacenz" type="checkbox" value="1" {if $smarty.get.zaplacenz==1}checked="checked" {/if}/>
+        <label for="zaplacenz">ne</label>
+        <input id="zaplacenz" name="zaplacenz" type="checkbox" value="2" {if $smarty.get.zaplacenz==2}checked="checked" {/if}/>
+        </td>
+        </tr>
+        <tr><td colspan="2" style="text-align: left"><strong>Dodavatel</strong></td></tr>
+        <tr>
+        <td class="form-left">Fakturováno:</td>
+        <td class="form-right"><label for="fakturad">ano</label>
+        <input id="fakturad" name="fakturad" type="checkbox" value="1" {if $smarty.get.fakturad==1}checked="checked" {/if}/>
+        <label for="fakturad">ne</label>
+        <input id="fakturad" name="fakturad" type="checkbox" value="2" {if $smarty.get.fakturad==2}checked="checked" {/if}/>
+        </td>
+        </tr>
+        <tr>
+        <td class="form-left">Zaplaceno:</td>
+        <td class="form-right"><label for="zaplacend">ano</label>
+        <input id="zaplacend" name="zaplacend" type="checkbox" value="1" {if $smarty.get.zaplacend==1}checked="checked" {/if}/>
+        <label for="zaplacend">ne</label>
+        <input id="zaplacend" name="zaplacend" type="checkbox" value="2" {if $smarty.get.zaplacend==2}checked="checked" {/if}/>
+        </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label><strong>Sloupce</strong></label></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="sloupec01">Datum:</label>
+            <input id="sloupec01" name="sloupce[]" type="checkbox" value="1" checked="checked" />
+            <label for="sloupec02"> | Klient:</label>
+            <input id="sloupec02" name="sloupce[]" type="checkbox" value="2" />
+            <label for="sloupec03"> | Dodavatel:</label>
+            <input id="sloupec03" name="sloupce[]" type="checkbox" value="3" />
+            <label for="sloupec04"> | Položka:</label>
+            <input id="sloupec04" name="sloupce[]" type="checkbox" value="4" checked="checked" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="sloupec05">Popis položky:</label>
+            <input id="sloupec05" name="sloupce[]" type="checkbox" value="5" />
+            <label for="sloupec11"> | Klíč:</label>
+            <input id="sloupec11" name="sloupce[]" type="checkbox" value="11" checked="checked" />
+            <label for="sloupec06"> | Hodiny:</label>
+            <input id="sloupec06" name="sloupce[]" type="checkbox" value="6" checked="checked" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="sloupec07">Sazba pro klienta:</label>
+            <input id="sloupec07" name="sloupce[]" type="checkbox" value="7" checked="checked" />
+            <label for="sloupec08"> | Sazba dodavatele:</label>
+            <input id="sloupec08" name="sloupce[]" type="checkbox" value="8" />
+            <label for="sloupec09"> | Celkem:</label>
+            <input id="sloupec09" name="sloupce[]" type="checkbox" value="9" checked="checked" />
+            <label for="sloupec10"> | Náklady:</label>
+            <input id="sloupec10" name="sloupce[]" type="checkbox" value="10" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><strong>Formát exportu</strong></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="format01">CSV (uvozovky, středník, des. tečka, windows-1250):</label>
+            <input id="format01" name="format" type="radio" value="1" checked="checked" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: left"><label for="format02">CSV (uvozovky, středník, des. čárka, utf-8):</label>
+            <input id="format02" name="format" type="radio" value="2" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Export" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+{include file='footer.tpl.htm'}

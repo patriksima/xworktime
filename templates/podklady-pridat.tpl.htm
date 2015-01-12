@@ -1,0 +1,136 @@
+{include file='header.tpl.htm' title='Podklady' page='podklady' js='podklady-pridat.js'}
+<div id="main">
+    <h3>Podklady</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+    <form action="pridat2.php" method="post">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat podklad" title="Přidat podklad" /> Přidat podklad</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="id_zadavatel">Klient <span class="has-tip tip-top" title="Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><select id="id_zadavatel" name="id_zadavatel">
+                <option value="">--vyberte--</option>
+{foreach name=zadavatele from=$zadavatele->GetData() item=zadavatel}
+{if $error->GetVal('id_zadavatel')==$zadavatel.id}
+                <option value="{$zadavatel.id}" selected="selected">{$zadavatel.nazev|escape}</option>
+{else}
+                <option value="{$zadavatel.id}">{$zadavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_zadavatel')}
+            <span class="form-error-msg">! {$error->GetMsg('id_zadavatel')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazbaz">Hodinová sazba pro klienta <span class="has-tip tip-top" title="Sazba, kterou účtujete klientovi. Povinný údaj."> * </span>:</label></td>
+            <td class="form-right"><select id="sazbaz" name="sazbaz">
+                <option value="">--vyberte--</option>
+            </select>    
+            <input id="sazbaz2" name="sazbaz2" type="text" value="{if $error->IsError()}{if $error->GetVal('sazbaz')}{$error->GetVal('sazbaz')}{/if}{/if}" size="5" />
+{if $error->CheckMsg('sazbaz')}
+            <span class="form-error-msg">! {$error->GetMsg('sazbaz')}</span>
+{/if}
+            </td>
+        </tr>        
+        <tr>
+            <td class="form-left"><label for="id_dodavatel">Dodavatel <span class="has-tip tip-top" title="Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><select id="id_dodavatel" name="id_dodavatel">
+                <option value="">--vyberte--</option>
+{foreach name=dodavatele from=$dodavatele->GetData() item=dodavatel}
+{if $error->GetVal('id_dodavatel')==$dodavatel.id}
+                <option value="{$dodavatel.id}" selected="selected">{$dodavatel.nazev|escape}</option>
+{else}
+                <option value="{$dodavatel.id}">{$dodavatel.nazev|escape}</option>
+{/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('id_dodavatel')}
+            <span class="form-error-msg">! {$error->GetMsg('id_dodavatel')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazbad">Hodinová sazba dodavatele <span class="has-tip tip-top" title="Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><input id="sazbad" name="sazbad" type="text" value="{if $error->IsError()}{if $error->GetVal('sazbad')}{$error->GetVal('sazbad')}{/if}{/if}" />
+{if $error->CheckMsg('sazbad')}
+            <span class="form-error-msg">! {$error->GetMsg('sazbad')}</span>
+{/if}
+            </td>
+        </tr>        
+        <tr>
+            <td class="form-left"><label for="nazev">Název práce <span class="has-tip tip-top" title="Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" value="{if $error->IsError()}{$error->GetVal('nazev')|escape}{/if}" size="60" />
+{if $error->CheckMsg('nazev')}
+            <span class="form-error-msg">! {$error->GetMsg('nazev')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="popis">Popis práce:</label></td>
+            <td class="form-right"><textarea id="popis" name="popis" rows="5" cols="40">{if $error->IsError()}{$error->GetVal('popis')|escape}{/if}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="hodinyd">Počet hodin dodavatele <span class="has-tip tip-top" title="Počet skutečně odpracovaných hodin dodavatele. Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><input id="hodinyd" name="hodinyd" type="text" value="{if $error->IsError()}{$error->GetVal('hodinyd')}{/if}" />
+{if $error->CheckMsg('hodinyd')}
+            <span class="form-error-msg">! {$error->GetMsg('hodinyd')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="hodinyz">Počet hodin pro klienta <span class="has-tip tip-top" title="Počet hodin, které vykazujete klientovi. Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><input id="hodinyz" name="hodinyz" type="text" value="{if $error->IsError()}{$error->GetVal('hodinyz')}{/if}" />
+{if $error->CheckMsg('hodinyz')}
+            <span class="form-error-msg">! {$error->GetMsg('hodinyz')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="klic">Klíčové slovo <span class="has-tip tip-top" title="Klíčovým slovem můžete rozlišit projekty pro jednoho klienta. Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><select id="klic" name="klic">
+                <option value="">--vyberte--</option>
+{assign var='found' value=0}
+{foreach name=klice from=$klice->GetData() item=klic}
+{if $error->GetVal('klic')==$klic.klic}{assign var='found' value=1}
+                <option value="{$klic.klic|escape}" selected="selected">{$klic.klic|escape}</option>
+{else}
+                <option value="{$klic.klic|escape}">{$klic.klic|escape}</option>
+{/if}
+{/foreach}
+            </select>
+            <input id="klic2" name="klic2" type="text" value="{if $error->IsError()}{$error->GetVal('klic')}{/if}" />
+{if $error->CheckMsg('klic')}
+            <span class="form-error-msg">! {$error->GetMsg('klic')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="splneno">Datum realizace (RRRR-MM-DD)<span class="has-tip tip-top" title="Datum ukončení úkolu. Povinný údaj"> * </span>:</label></td>
+            <td class="form-right"><input id="splneno" name="splneno" type="text" value="{if $error->IsError()}{$error->GetVal('splneno')}{else}{$smarty.now|date_format:"%Y-%m-%d"}{/if}" />
+{if $error->CheckMsg('splneno')}
+            <span class="form-error-msg">! {$error->GetMsg('splneno')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Uložit" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+{include file='footer.tpl.htm'}

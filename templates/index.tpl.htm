@@ -1,0 +1,57 @@
+{include file='header.tpl.htm' page='prehled'}
+{if $help}
+<div id="dialog-message" title="Vítejte v aplikaci XWorkTime">
+	<p>
+		<span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 150px 0;"></span>
+		Nacházíte se v hlavním přehledu aplikace.
+	</p>
+    <p>
+        Zde se zobrazuje jednoduchý <strong>finanční přehled</strong> - stav fakturace, pohledávky, závazky a zisk.
+    </p>
+	<p>
+        Kliknutím na šipečky &raquo; se vám vyfiltrují příslušné podklady v sekci <a href="/podklady/">Podklady</a>.
+	</p>
+	<p>
+		Přehled lze samozřejmě <strong>na přání rozšířit</strong> o další funkcionality jako jsou grafy nebo statistické tabulky.
+	</p>
+</div>
+{literal}
+<script>
+    $( "#dialog-message" ).dialog({
+        modal: false,
+        show: 'slide',
+        hide: 'fade',
+        minWidth: '500',
+        buttons: {
+            'OK, již nezobrazovat': function() {
+                $.cookie('help_index', 'off', {domain: '.xworktime.com', expires: 999, path: '/'})
+                $( this ).dialog( "close" )
+            }
+        }
+    })
+    $( "#dialog-message" ).dialog('open')
+</script>
+{/literal}
+{/if}
+<div id="main">
+    <hr />
+    <h3>Finanční přehled</h3>
+    <h4>Klienti</h4>
+
+    <p>
+    Celkem zbývá vyfakturovat <span class="has-tip tip-top" data-width="210" title="Úkoly, které již byly dokončeny a schváleny klientem"> ? </span>: <a href="podklady/?filtr=2&amp;fakturaz=2"><span class="suma">{$zadavatele_nefakturovano|number_format:2:",":" "}</span> Kč &raquo;</a><br />
+
+    Celkem nám dluží <span class="has-tip tip-top" data-width="210" title="Zatím nezaplacené vystavené faktury"> ? </span>: <a href="podklady/?filtr=2&amp;fakturaz=1&amp;zaplacenz=2"><span class="suma">{$zadavatele_dluh|number_format:2:",":" "}</span> Kč &raquo;</a>
+    </p>
+    
+    <h4>Dodavatelé</h4>
+    <p>
+    Celkem zbývá vyfakturovat <span class="has-tip tip-top" data-width="210" title="Úkoly, které již byly dokončeny, ale dodavatel vám je zatím nevyfakturoval"> ? </span>: <a href="podklady/?filtr=2&amp;fakturad=2"><span class="suma">{$dodavatele_nefakturovano|number_format:2:",":" "}</span> Kč &raquo;</a><br />
+
+    Celkem dlužíme <span class="has-tip tip-top" data-width="210" title="Zatím nezaplacené přijaté faktury"> ? </span>: <a href="podklady/?filtr=2&amp;zaplacend=2"><span class="suma">{$dodavatele_dluh|number_format:2:",":" "}</span> Kč &raquo;</a>
+    </p>
+    
+    <h4>Papírový zisk:</h4> <span class="suma">{$zisk|number_format:2:",":" "}</span> Kč <span class="has-tip tip-top" data-width="210" title="Faktury vydané mínus přijaté"> ? </span>
+    <h4>Skutečný zisk:</h4> <span class="suma">{$zisk_skutecny|number_format:2:",":" "}</span> Kč <span class="has-tip tip-top" data-width="210" title="Reálně zaplaceno"> ? </span><br /><br />
+    
+{include file='footer.tpl.htm'}

@@ -1,0 +1,82 @@
+{include file='header.tpl.htm' js='upravit.js'}
+<div id="main">
+    <h3>Ticket</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam požadavků</a>
+    </p>
+
+    <form action="upravit2.php?id_helpdesk={$smarty.get.id_helpdesk}&amp;id_ukol={$smarty.get.id_ukol}" method="post" enctype="multipart/form-data">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Upravit požadavek" title="Upravit požadavek" /> Upravit požadavek</legend>
+        <table id="formtable">
+        <tr>
+            {assign var=temp value=': '|explode:$ukol->Get('nazev')} 
+            <td class="form-left"><label for="jmeno">Vaše jméno *:</label></td>
+            <td class="form-right"><input id="jmeno" name="jmeno" type="text" value="{if $error->IsError()}{$error->GetVal('jmeno')|escape}{else}{$temp[0]|escape}{/if}" size="30" />
+{if $error->CheckMsg('jmeno')}
+            <span class="form-error-msg">! {$error->GetMsg('jmeno')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="typ">Typ požadavku *:</label></td>
+            <td class="form-right"><select id="typ" name="typ">
+{foreach name=typy from=$typy->GetData() item=typ}
+    {if $ukol->Get('typ') == $typ.typ}
+                <option value="{$typ.typ|escape}" selected="selected">{$typ.typ|escape}</option>
+    {else}
+                <option value="{$typ.typ|escape}">{$typ.typ|escape}</option>
+    {/if}
+{/foreach}
+            </select>
+{if $error->CheckMsg('typ')}
+            <span class="form-error-msg">! {$error->GetMsg('typ')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Stručný popis *:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" maxlength="160" value="{if $error->IsError()}{$error->GetVal('nazev')|escape}{else}{$temp[1]|escape}{/if}" size="50" />
+{if $error->CheckMsg('nazev')}
+            <span class="form-error-msg">! {$error->GetMsg('nazev')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="popis">Detailní popis:</label></td>
+            <td class="form-right"><textarea id="popis" name="popis" rows="5" cols="40">{if $error->IsError()}{$error->GetVal('popis')|escape}{else}{$ukol->Get('popis')|escape}{/if}</textarea>
+{if $error->CheckMsg('popis')}
+            <span class="form-error-msg">! {$error->GetMsg('popis')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="priloha">Příloha:</label></td>
+            <td class="form-right"><input id="priloha" name="priloha" type="file" value="" /></td>
+        </tr>
+        {if $priloha->Get('id')}
+        <tr>
+            <td class="form-left">&nbsp;</td>
+            <td class="form-right"><a href="{$ROOTPATH}podpora/upload/{$priloha->Get('soubor')}">{$priloha->Get('nazev')}</a>
+                <a href="{$ROOTPATH}podpora/smazat.php?id_helpdesk={$smarty.get.id_helpdesk}&amp;id_ukol={$smarty.get.id_ukol}&amp;id_priloha={$priloha->Get('id')}" data-confirm="Opravdu smazat přílohu?" class="ajax"><img src="{$ROOTPATH}img/delete.gif" title="Smazat přílohu" class="has-tip tip-top" /></a></td>
+        </tr>
+        {/if}
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Uložit" /></td>
+            <td class="form-right">&nbsp;</td> 
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td> 
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam požadavků</a>
+    </p>
+    
+{include file='footer.tpl.htm'}

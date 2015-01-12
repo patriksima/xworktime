@@ -1,0 +1,62 @@
+{include file='header.tpl.htm' js='podklady-upravit.js'}
+<div id="main">
+    <h2>Podklady</h2>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+    <form action="kopirovat2.php?id={$smarty.get.id}" method="post">
+    <input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" />
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/edit.gif" alt="Kopírovat podklad" title="Kopírovat podklad" /> Kopírovat podklad</legend>
+{if $error->CheckMsg('id_podklad')}
+        <p><span class="form-error-msg">{$error->GetMsg('id_podklad')}</span></p>
+{/if}
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="zadavatel">Klient:</label></td>
+            <td class="form-right"><input class="disabled" id="zadavatel" name="zadavatel" type="text" value="{$zadavatel->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="nazev">Název:</label></td>
+            <td class="form-right"><input class="disabled" id="nazev" name="nazev" type="text" value="{$ukol->Get('nazev')|escape}" size="60" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="klic">Klíčové slovo:</label></td>
+            <td class="form-right"><input class="disabled" id="klic" name="klic" type="text" value="{$ukol->Get('klic')|escape}" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="popis">Popis práce:</label></td>
+            <td class="form-right"><textarea id="popis" name="popis" rows="5" cols="40">{$ukol->Get('popis')|escape}</textarea></td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="hodinyd">Počet hodin *:</label></td>
+            <td class="form-right"><input id="hodinyd" name="hodinyd" type="text" value="{if $error->IsError()}{$error->GetVal('hodinyd')}{else}{$podklad->Get('hodinyd')}{/if}" />
+{if $error->CheckMsg('hodinyd')}
+            <span class="form-error-msg">! {$error->GetMsg('hodinyd')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazbad">Sazba (Kč/hod.) *:</label></td>
+            <td class="form-right"><input id="sazbad" name="sazbad" type="text" value="{if $error->IsError()}{if $error->GetVal('sazbad')!=''}{$error->GetVal('sazbad')|string_format:"%d"}{/if}{else}{$podklad->Get('sazbad')|string_format:"%d"}{/if}" />
+{if $error->CheckMsg('sazbad')}
+            <span class="form-error-msg">! {$error->GetMsg('sazbad')}</span>
+{/if}
+            </td>
+        </tr>        
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Uložit" title="Uložit jako nový" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam podkladů</a>
+    </p>
+{include file='footer.tpl.htm'}

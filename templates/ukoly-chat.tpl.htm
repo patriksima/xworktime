@@ -1,0 +1,34 @@
+{include file='header.tpl.htm' title='Úkoly' page='ukoly' js='ukoly-chat.js'}
+<div id="main">
+    <h3>{$ukol->get('nazev')} - diskuze</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+
+    <form action="chat-pridat.php?id_ukol={$smarty.get.id_ukol}" method="post">
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat příspěvek" title="Přidat příspěvek" /> Přidat příspěvek</legend>
+        <p>
+            <label for="zprava">Zpráva *:</label>{if $error->CheckMsg('zprava')}<span class="form-error-msg">! {$error->GetMsg('zprava')}</span>{/if}<br />
+            <textarea id="zprava" name="zprava" rows="5" cols="80"></textarea>
+        </p>
+        <p>
+            <input type="submit" id="butt_green" value="Uložit" />
+        </p>
+    </fieldset>
+    </form>
+
+    {foreach name=ukolchat from=$ukolchat->GetData() item=chat}
+    <div class="chat-item chat-{$chat.typ}">
+        <h4>{$chat.poslal}</h4><small>{$chat.vytvoreno|date_format:"%e.%B %Y %H.%I"}</small>
+        <p>{$chat.zprava|escape}</p><hr />
+    </div>
+    {/foreach}
+
+
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam úkolů</a>
+    </p>
+    
+{include file='footer.tpl.htm'}

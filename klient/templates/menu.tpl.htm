@@ -1,0 +1,11 @@
+    <div id="navi">
+    <ul class="level0">
+        <li{if $page=='podklady'} class="selected"{/if}><span>[ </span><a href="{$ROOTPATH}klient/"><strong>Podklady</strong></a><span> ]</span>
+            <ul class="level1">
+                <li><span>[ </span><a href="{$ROOTPATH}klient/?filtr=1"><strong>Vyhledat podklady</strong></a><span> ]</span></li>
+                <li><span>[ </span><a href="{$ROOTPATH}klient/export.php?splnenood={$smarty.get.splnenood}&amp;splnenodo={$smarty.get.splnenodo}&amp;nazev={$smarty.get.nazev|escape}&amp;klic={$smarty.get.klic|escape}"><strong>Exportovat podklady</strong></a><span> ]</span></li>
+            </ul></li>
+        <li><span>[ </span><a href="{$ROOTPATH}klient/odhlasit.php"><strong>Odhlásit</strong></a><span> ]</span></li>
+    </ul>
+    </div>
+    <hr class="noprint" />

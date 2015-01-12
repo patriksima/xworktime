@@ -1,0 +1,4 @@
+~*.*
+*.bak
+config/config.xml
+compiled/*

@@ -1,0 +1,38 @@
+{include file='header-login.tpl.htm' js='zapomnel.js'}
+<body>
+<div id="login">
+  <div class="loginform">
+  <h1>Patrik Šíma</h1>
+  <h2>XWorkTime</h2>
+  <hr />
+    <form action="zapomnel2.php" method="post">
+{if isset($smarty.get.ok)}
+    <div class="contentplace" style="display:block"><div class="topplace"><img src="./img/GtFTpGm-0.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div><p>Přístupy byly odeslány</p><div class="bottomplace"><img src="./img/YcIW1vn-3.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div></div>
+{/if}
+{if isset($smarty.get.fail)}
+    <div class="contentplace" style="display:block"><div class="topplace"><img src="./img/GtFTpGm-0.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div><p>Uživatel nebyl nalezen</p><div class="bottomplace"><img src="./img/YcIW1vn-3.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div></div>
+{/if}
+    <p>
+        <label for="prist_jmeno">Přístupové jméno *:</label><br />
+        <input id="prist_jmeno" name="prist_jmeno" style="width: 262px;" type="text" value="{if $error->IsError()}{$error->GetVal('prist_jmeno')}{/if}" />
+{if $error->CheckMsg('prist_jmeno')}
+        <div class="contentplace"><div class="topplace"><img src="./img/GtFTpGm-0.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div><p>{$error->GetMsg('prist_jmeno')}</p><div class="bottomplace"><img src="./img/YcIW1vn-3.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div></div>
+{/if}
+    </p>
+    <p>
+        <label for="email">E-mail *:</label><br />
+        <input id="email" name="email" style="width: 262px;" type="text" value="{if $error->IsError()}{$error->GetVal('email')}{else}@{/if}" />
+{if $error->CheckMsg('email')}
+        <div class="contentplace"><div class="topplace"><img src="./img/GtFTpGm-0.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div><p>{$error->GetMsg('email')}</p><div class="bottomplace"><img src="./img/YcIW1vn-3.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div></div>
+{/if}
+    </p>
+    <p style="text-align: center;">
+        <input id="submit" type="submit" value="Poslat" />
+    </p>
+    </form>
+    <p>
+        <a href="prihlasit.php">&lt;&lt; zpět na přihlášení</a>
+    </p>
+  </div>
+</div>
+{include file='footer-login.tpl.htm'}

@@ -1,0 +1,39 @@
+{include file='header.tpl.htm' title='Klienti' page='zadavatele' js='zadavatele-pridat.js'}
+<div id="main">
+    <h3>Klienti</h3>
+    <hr />
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam klientů</a>
+    </p>
+    <form action="pridat2.php" method="post">
+    <p><input name="query" type="hidden" value="{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+\?*/":""}" /></p>
+    <fieldset>
+        <legend><img src="{$ROOTPATH}img/add2.gif" alt="Přidat zadavatele" title="Přidat zadavatele" /> Přidat klienta</legend>
+        <table id="formtable">
+        <tr>
+            <td class="form-left"><label for="nazev">Název klienta *:</label></td>
+            <td class="form-right"><input id="nazev" name="nazev" type="text" value="{if $error->IsError()}{$error->GetVal('nazev')|escape}{/if}" size="40" />
+{if $error->CheckMsg('nazev')}
+            <span class="form-error-msg">! {$error->GetMsg('nazev')}</span>
+{/if}
+            </td>
+        </tr>
+        <tr>
+            <td class="form-left"><label for="sazbanazev1">Hodinová sazba za:</label></td>
+            <td class="form-right"><input id="sazbanazev1" name="sazbanazev[]" type="text" value="údržba" /> - <input id="sazba1" name="sazba[]" type="text" value="650" size="5" /> (Kč) [ <a href="#">-</a> ][ <a href="#">+</a> ]</td>
+        </tr>
+        <tr>
+            <td class="form-left"><input type="submit" id="butt_green" value="Uložit" /></td>
+            <td class="form-right">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="form-left">* povinné položky</td>
+            <td class="form-right">&nbsp;</td>            
+        </tr>
+        </table>
+    </fieldset>
+    </form>
+    <p class="zpet_na_seznam">
+        <a href="./{$smarty.server.HTTP_REFERER|regex_replace:"/^[^\?]+/":""}">&lt;&lt; zpět na seznam klientů</a>
+    </p>
+{include file='footer.tpl.htm'}

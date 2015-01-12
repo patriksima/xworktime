@@ -1,0 +1,35 @@
+﻿{include file='header-login.tpl.htm' js='prihlasit.js' title='On-line webová aplikace pro správu zakázek, dodavatelů a podkladů k fakturaci'}
+<body>
+<div id="login">
+  <div class="loginform">
+  <h1>On-line webová aplikace pro správu zakázek, dodavatelů a podkladů k fakturaci</h1>
+  <h2>XWorkTime</h2>
+  <hr />
+  <form action="prihlaseni.php" method="post">
+{if isset($smarty.get.fail)}
+    <div class="contentplace" style="display:block"><div class="topplace"><img src="./img/GtFTpGm-0.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div><p>Přihlášení bylo neúspěšné</p><div class="bottomplace"><img src="./img/YcIW1vn-3.png" alt="" width="10" height="10" class="placeborder" style="display: none" /></div></div>
+{/if}
+  <p>
+      <label for="prihlasitjako">Přihlásit se jako:</label><br /><br />
+      <select id="prihlasitjako" style="width: 262px">
+        <option value="demo">správce</option>
+        <option value="dodavatel">dodavatel</option>
+        <option value="klient">klient</option>
+      </select>
+  </p>
+  <p><br />Toto je DEMO verze služby XWorkTime<br /><br /><p>
+  <p style="text-align: center;">
+      <input id="prist_jmeno" type="hidden" name="prist_jmeno" value="demo" />
+      <input id="prist_heslo" type="hidden" name="prist_heslo" value="xworktime" />
+      <input id="submit" type="submit" value="Přihlásit" />
+  </p>
+  </form>
+  </div>
+  <hr />
+  <div id="footer">
+        <a class="web" href="http://www.xworktime.com/">web</a>
+        <a class="twitter" href="http://twitter.com/xworktime/">follow me!</a>
+        <a class="support" href="http://www.xworktime.com/support.php">podpora</a>
+  </div>
+</div>
+{include file='footer-login.tpl.htm'}

@@ -1,0 +1,72 @@
+- vzhledem k tomu, ze uz nejde pouze o evidenci hodin, adresar (i aplikaci) bych prejmenoval pouze na "evidence"
+
+
+admin:
+
+* uvodni obrazovka
+
+- Zapomenuli jste heslo? -> Zapomneli jste heslo?
+
+- [ Podklady ]
+    * [ Pøidat podklad ]
+prehlednejsi by bylo na 1 radku: [ Prehled podkladu ] [ Pridat podklad ]
+
+
+* podklady
+
+- zatim chybi filtrovani a uzavirani podkladu, jako v 1. verzi
+
+- jestlize podklad vznika splnenim-uzavrenim ukolu, chybi mi tam ta diskutovana rozklikavaci poznamka s podrobnosti ukolu/podkladu
+
+- v soucasne verzi mam moznost nastavit "zaplaceno zadavatelem", ale pouzivam ji pro stav "vyfakturovano" (zvlast tam evidovat jeste i "zaplaceno" myslim neni nutne, to uz hlidame mirka i ja jinak.
+
+
+* dodavatele
+
+- pridavani/editace dodavatele: velmi casto dodavatel zvlada vice funkci - koder a programator, grafik a koder, projektovy manazer a analytik atd.; nabizi se otazka, zda potrebujeme kazdeho mit zaskatulkovaneho v predem pripravene - pevne dane - kategorii, zda nestaci jen ta existujici textova poznamka, kde si poznamename, co vse clovrda umi, jsou tam totiz i dalsi role - copywriter, aktualizator, registrator do katalogu, spravce PPC atd., flash animator... ktere se navzajem prolinaji; momentalne ani nevidim potrebu filtrovat dodavatele podle nejakych pevne pridelenych kategorii, takze podle meho ta poznamka "co umi" by to vyresila. kdyby bylo dodavatelu hodne a uz bychom se nepamatovali, co kdo umi a potrebovali bychom vyhledat napr. ty se znalosti flashe, vystacili bychom se searchem v tom textovem poli "co umi"
+
+- v seznamu dodavatelu by mel byt jak odkaz [ Podklady ] (tj. jiz dokoncene ukoly), tak [ Ukoly ], 
+zde by bylo prakticke videt aktualni pocet neuzavrenych ukolu, tj. [ Ukoly (4) ]
+
+
+* uzivatele
+
+- prehled uzivatelu hlasi chybu
+
+- ve chvili, kdy pridelim/zmenim dodavateli, resp. uzivateli, heslo, system by mu ho mel poslat
+
+
+* zadani ukolu
+
+- jako dodavateli mi prijde e-mail:
+---------
+Dobrý den,
+
+byl Vám pøidìlen nový úkol.
+Pøihlašte se prosím na adrese http://aplikace.ovx.cz/ev-hodin a potvrïte pøijetí úkolu.
+V pøípadì, že není urèen termín, prosím o jeho vyplnìní.
+
+S pozdravem
+Patrik Šíma
+OVX.cz 2003 s.r.o.
+www.ovx.cz
+----------
+
+vzhledem k tomu, ze ukoly budeme zadavat oba (a kdo vi, casem treba jeste nekdo dalsi), nemelo by to prijit jmenovite od tebe, ale od nejake systemove adresy "evidence@ovx.cz" (na kterou kdyz da dodavatel RE:, tak to prijde nam obema, resp. tam, kam je nastaveno preposlani, podobne jako to mame nastavene u banka@ovx.cz).
+
+stejne tak by bylo zadouci, kdyby nazev a popis (byl-li vyplnen) a datum (bylo-li vyplneno) ukolu byly uz primo obsazeny v mailu a prokliknutim se dodavatel dostane primo na editaci toho daneho ukolu, vcetne automatickeho prihlaseni. mail musi byt v tom pripade zrejme byt poslan jako html. presne takto mam od dalibora vyresene proklikavani uzivatelu FSC na jejich osobni preference - zavola to prislusny zaznam a rovnou je to do aplikace i prihlasi.
+
+ja nekdy poslu treba pavlovi za den i 3 ukoly, kdyby to vse bylo jen takto obecne, meli by v tom dodavatele hokej.
+
+- i kdyz jsem si v adminu pridelil username a heslo, a chtel jsem se pak po obdrzeni ukolu jako dodavatel prihlasit a vyplnit datum splneni, abych videl, co mi to posle jako adminovi (opet by melo byt jako doposud, ze notifikace posila nam obema, resp. na nenejakou tu systemovou adresu, ktera nam to priposle), aplikace mne jako dodavatele neprihlasila, takze tim jsem s dalsim testovanim skoncil. v kazdem pripade, kdyz dodavatel vyplni datum ukolu, mela by opet jit notifikace na systemovou adresu.
+
+
+* prehled ukolu
+
+- v seznamu ukolu by mel u ukolu byt jako prvni udaj "Vznik ukolu", aby bylo videt, kdy byl dodavateli zadan.
+
+- u kazdeho ukolu by mela byt rozklikavaci polozka "Popis ukolu" (pristupna tehdy, kdyz je v popisce neco zapsano), ktera by se rozbalila pod radek s ukolem - klasicke +/- pro sbalit/rozbalit
+
+- v odkazech za ukolem by mela pribyt volba [ Pripomenout ] - tam, kde uvidim, ze termin ukolu stale neni dodavatelem vyplnen, bych mu to 1 kliknutim mohl poslat znova (proto bude dobre videt v prehledu ukolu i datum jejich vzniku)
+
+- nejak jsem neodhalil, kde se nastavuje status ukolu

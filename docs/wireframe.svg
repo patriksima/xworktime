@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="1000"
+   id="svg2"
+   inkscape:label="Pozadí"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="wireframe.svg">
+  <defs
+     id="defs3">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective9" />
+    <inkscape:perspective
+       id="perspective3760"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="470.1903"
+     inkscape:cy="433.9658"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1206"
+     inkscape:window-height="820"
+     inkscape:window-x="147"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0">
+    <sodipodi:guide
+       orientation="0,1"
+       position="173.74624,911.1576"
+       id="guide2815" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="185.86807,996.01041"
+       id="guide2817" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="149.50258,4.0406102"
+       id="guide2819" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="204.05081,80.812204"
+       id="guide2821" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-52.362183)">
+    <image
+       y="201.16283"
+       x="61.015179"
+       id="image3762"
+       height="390"
+       width="883"
+       xlink:href="file:///home/patrik/Plocha/Aplikace/ev-hodin/docs/prodej/evidence-ilustrace.png" />
+    <rect
+       style="fill:#ff0000;fill-opacity:1;stroke:none"
+       id="rect2823"
+       width="183.84778"
+       height="84.852814"
+       x="812.16266"
+       y="56.351772" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="36.365494"
+       y="52.476913"
+       id="text2825"
+       transform="translate(0,52.362183)"><tspan
+         sodipodi:role="line"
+         id="tspan2827"
+         x="36.365494"
+         y="52.476913">Úvod | Novinky | Vlastnosti | Pro koho je | Bezpečnost dat | Podpora | Ceny | Registrace | Kontakt</tspan></text>
+    <rect
+       style="fill:none;stroke:#1bb600;stroke-width:2.3160708;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2829"
+       width="981.55219"
+       height="391.62311"
+       x="8.239255"
+       y="206.01241" />
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="66.670067"
+       y="189.69193"
+       id="text3603"><tspan
+         sodipodi:role="line"
+         id="tspan3605"
+         x="66.670067"
+         y="189.69193">Organizujte svou agenturu lépe! Používejte BaseTime</tspan><tspan
+         sodipodi:role="line"
+         x="66.670067"
+         y="229.69193"
+         id="tspan3607" /></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#1bb600;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3613"
+       width="159.6041"
+       height="58.588848"
+       x="816.20331"
+       y="516.98132" />
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="840.44696"
+       y="559.40771"
+       id="text3615"><tspan
+         sodipodi:role="line"
+         id="tspan3617"
+         x="840.44696"
+         y="559.40771">Ceník</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#1bb600;stroke-width:2.03579497;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3619"
+       width="486.85773"
+       height="309.07086"
+       x="8.0991201"
+       y="613.97382" />
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="189.90868"
+       y="597.95929"
+       id="text3621"
+       transform="translate(0,52.362183)"><tspan
+         sodipodi:role="line"
+         id="tspan3623"
+         x="189.90868"
+         y="597.95929">Pokec</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#1bb600;stroke-width:1.99633825;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3625"
+       width="474.77536"
+       height="305.06973"
+       x="519.21655"
+       y="615.97443" />
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="668.72101"
+       y="601.99988"
+       id="text3627"
+       transform="translate(0,52.362183)"><tspan
+         sodipodi:role="line"
+         id="tspan3629"
+         x="668.72101"
+         y="601.99988">Vlastnosti</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#1bb600;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3631"
+       width="321.22852"
+       height="103.03556"
+       x="359.61432"
+       y="424.0473" />
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="416.18286"
+       y="482.63617"
+       id="text3633"><tspan
+         sodipodi:role="line"
+         id="tspan3635"
+         x="416.18286"
+         y="482.63617">demo login</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="523.25897"
+       y="141.20459"
+       id="text3666"><tspan
+         sodipodi:role="line"
+         id="tspan3668"
+         x="523.25897"
+         y="141.20459">zdarma</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="54.548237"
+       y="971.71576"
+       id="text3670"
+       transform="translate(0,52.362183)"><tspan
+         sodipodi:role="line"
+         id="tspan3672"
+         x="54.548237"
+         y="971.71576">Twitter | Novinky | ... + odkazy na dalsi projekty jak to ma basecamp</tspan></text>
+  </g>
+</svg>

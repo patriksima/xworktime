@@ -1,0 +1,21 @@
+
+body {
+    font-family: Tahoma, Arial, Verdana;
+    font-size: .8em;
+    line-height: 1.2em;
+    color: #000000;
+    background-color: #ffffff;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+h1 {
+    font-size: 1.3em;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+
+.noprint, #navi, table th a {display:none;}
+table th {text-align:left;}

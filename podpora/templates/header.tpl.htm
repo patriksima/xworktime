@@ -1,0 +1,78 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<head>
+    <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-language" content="cs" />
+    <meta http-equiv="Cache-Control"    content="must-revalidate, post-check=0, pre-check=0" /> 
+    <meta http-equiv="Pragma"           content="public" />
+    <meta http-equiv="Cache-Control"    content="no-cache" /> 
+    <meta http-equiv="Pragma"           content="no-cache" /> 
+    <meta http-equiv="Expires"          content="-1" /> 
+    <title>{$zadavatel->Get('nazev')|escape} | Helpdesk | XWorkTime</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{$ROOTPATH}img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/main.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="{$ROOTPATH}css/default-print.css" />
+    <!--[if IE 6]> 
+    <link rel="stylesheet" type="text/css" href="{$ROOTPATH}css/ie.css" media="screen,projection" /> 
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/south-street/jquery-ui-1.10.0.custom.min.css" />
+{if $css}
+    <link rel="stylesheet" type="text/css" media="screen" href="{$ROOTPATH}css/{$css}" />
+{/if}
+{literal}
+    <script type="text/javascript">
+    window.jsErrors = [];
+    window.onerror = function(errorMessage) {
+      window.jsErrors.push(errorMessage);
+    }
+    </script>
+{/literal}
+    <script src="{$ROOTPATH}js/jquery-1.9.0.min.js"></script>
+    <script src="{$ROOTPATH}js/jquery-ui.min.js"></script>
+    <script src="{$ROOTPATH}js/jquery.tooltips.js"></script>
+{if $js}
+    <script src="{$ROOTPATH}podpora/js/{$js}"></script>
+{/if}
+{literal}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-235489-18']);
+      _gaq.push(['_setDomainName', 'xworktime.com']);
+      _gaq.push(['_setAllowHash', 'false']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+      $(document).ready(function($) {
+        $(this).tooltips();
+      });
+    </script>
+{/literal}   
+</head>
+<body>
+<div id="hodiny"></div>
+<div id="web">
+  <div id="top">
+    <div id="h1" class="helpdesk"><h1>HelpDesk</h1></div>
+    <div id="h2-evidence"><h2>XWorkTime</h2></div>
+    <div id="user">
+      <p>{$zadavatel->Get('nazev')|escape}</p>
+    </div>
+    <div id="logout">
+      <p><a href="{$ROOTPATH}odhlasit.php" title="Odhlásit">Odhlásit</a></p>
+    </div>
+  </div>
+  <div id="menu">
+    <ul class="menu">
+      <li class="selected"><a href="{$ROOTPATH}podpora/?id_helpdesk={$smarty.get.id_helpdesk}" class="menuclass">Požadavky</a>
+        <ul>
+          <li><a href="{$ROOTPATH}podpora/?id_helpdesk={$smarty.get.id_helpdesk}">Seznam požadavků</a></li>
+          <li><a href="{$ROOTPATH}podpora/ticket.php?id_helpdesk={$smarty.get.id_helpdesk}">Přidat požadavek</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
